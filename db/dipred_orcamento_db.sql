@@ -1,4 +1,4 @@
--- Script de criação e carga do banco de dados do Sistema de Orçamento de Engenharia - DIPRED/DMAN - TJRS
+-- Script de criação e carga do banco de dados do Sistema de Orçamento de Engenharia - DIPRED-DMAN - TJRS
 -- Gerado a partir dos dados de referência do front-end (comarcas.json, lotes.json, itens-orcamento.json)
 
 CREATE DATABASE IF NOT EXISTS dipred_orcamento_db;

@@ -373,7 +373,7 @@ window.gerarRelatorioPDF = function () {
   const doc = new jsPDF({ unit: "pt", format: "a4" });
   const margem = 40;
   const largura = doc.internal.pageSize.getWidth();
-  const RODAPE_INSTITUCIONAL = "Tribunal de Justiça - DIPRED/DMAN";
+  const RODAPE_INSTITUCIONAL = "Tribunal de Justiça - DIPRED-DMAN";
   let y = 34;
 
   doc.setFont("helvetica", "normal");

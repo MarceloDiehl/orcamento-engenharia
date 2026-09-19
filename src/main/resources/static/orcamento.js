@@ -94,18 +94,17 @@ function renderizarGrupos() {
 function criarLinhaItem(item) {
   const unidade = item.unidade || "-";
   const ehMetro = unidade.toUpperCase() === "M";
-  const ehUnidade = unidade.toUpperCase() === "UN";
-  const step = ehMetro ? "0.01" : "1";
   const max = ehMetro ? "9999.99" : "9999";
-  const classeSpin = ehUnidade ? "" : " sem-spin";
 
   return `<div class="linha-item" data-codigo="${item.codigo}"
                data-descricao="${item.descricao.toLowerCase()}">
     <span class="item-codigo">${item.codigo}</span>
     <span class="item-descricao">${item.descricao}</span>
     <span class="item-unidade" data-unidade-padrao="${unidade}">${unidade}</span>
-    <input type="number" min="0" max="${max}" step="${step}" value="0"
-           class="form-control form-control-sm item-qtd${classeSpin}"
+    <input type="text" inputmode="${ehMetro ? "decimal" : "numeric"}" autocomplete="off"
+           maxlength="${ehMetro ? 7 : 4}" value="0"
+           data-decimal="${ehMetro}" data-max="${max}"
+           class="form-control form-control-sm item-qtd"
            data-precos='${JSON.stringify(item.precos)}'>
     <span class="item-valor-unit">-</span>
     <span class="item-valor-total">R$ 0,00</span>
@@ -113,6 +112,37 @@ function criarLinhaItem(item) {
 }
 
 // 4. CÁLCULO DE VALORES
+// Quantidade digitada (aceita vírgula ou ponto como separador decimal, só nos itens em metro)
+function lerQuantidade(input) {
+  return parseFloat(input.value.replace(",", ".")) || 0;
+}
+
+// UN/CJ (e demais): só inteiros de 0 a 9999. M: decimal com até 2 casas, de 0 a 9999,99.
+function sanitizarQuantidade(input) {
+  const ehDecimal = input.dataset.decimal === "true";
+  const max = parseFloat(input.dataset.max);
+  let v = input.value.replace(ehDecimal ? /[^\d.,]/g : /\D/g, "");
+
+  if (ehDecimal) {
+    const i = v.search(/[.,]/);
+    if (i !== -1) {
+      const separador = v[i];
+      const inteira = v.slice(0, i).replace(/^0+(?=\d)/, "") || "0";
+      const fracao = v.slice(i + 1).replace(/\D/g, "").slice(0, 2);
+      v = inteira + separador + fracao;
+    } else {
+      v = v.replace(/^0+(?=\d)/, "");
+    }
+  } else {
+    v = v.replace(/^0+(?=\d)/, "");
+  }
+
+  if (v !== "" && parseFloat(v.replace(",", ".")) > max) {
+    v = String(max).replace(".", ",");
+  }
+  return v;
+}
+
 function obterPrecoValido(precos, lote) {
   const bruto = precos[lote - 1];
   const valor = parseFloat(bruto);
@@ -131,7 +161,7 @@ function recalcularTudo() {
       const input = linha.querySelector(".item-qtd");
       const precos = JSON.parse(input.dataset.precos);
       const precoUnit = obterPrecoValido(precos, lote);
-      const qtd = parseFloat(input.value) || 0;
+      const qtd = lerQuantidade(input);
 
       const spanUnit = linha.querySelector(".item-valor-unit");
       const spanTotal = linha.querySelector(".item-valor-total");
@@ -226,10 +256,36 @@ window.limparOrcamento = function () {
 function configurarEventosQuantidade() {
   document.getElementById("orc-lista-grupos")?.addEventListener("input", e => {
     if (e.target.classList.contains("item-qtd")) {
-      const max = parseFloat(e.target.max);
-      if (e.target.value < 0) e.target.value = 0;
-      if (!isNaN(max) && parseFloat(e.target.value) > max) e.target.value = max;
+      e.target.value = sanitizarQuantidade(e.target);
       recalcularTudo();
+    }
+  });
+
+  // Setas ↑/↓ do teclado somam/subtraem 1 nos itens inteiros (UN, CJ); em metro (M) não se aplica
+  document.getElementById("orc-lista-grupos")?.addEventListener("keydown", e => {
+    if (!e.target.classList.contains("item-qtd") || e.target.dataset.decimal === "true") return;
+    if (e.key !== "ArrowUp" && e.key !== "ArrowDown") return;
+
+    e.preventDefault();
+    const passo = e.key === "ArrowUp" ? 1 : -1;
+    const novo = Math.min(Math.max(lerQuantidade(e.target) + passo, 0), parseFloat(e.target.dataset.max));
+    e.target.value = String(novo);
+    e.target.select();
+    recalcularTudo();
+  });
+
+  // Ao sair do campo: vazio vira 0 e separador solto no fim ("5,") é removido
+  document.getElementById("orc-lista-grupos")?.addEventListener("focusout", e => {
+    if (e.target.classList.contains("item-qtd")) {
+      e.target.value = e.target.value.replace(/[.,]$/, "") || "0";
+      recalcularTudo();
+    }
+  });
+
+  // Seleciona todo o valor ao focar, para que digitar sempre substitua em vez de concatenar (ex.: "0" + "5" = "05")
+  document.getElementById("orc-lista-grupos")?.addEventListener("focusin", e => {
+    if (e.target.classList.contains("item-qtd")) {
+      e.target.select();
     }
   });
 }
@@ -322,6 +378,11 @@ function configurarModalRelatorio() {
       contador.textContent = `${descricao.value.length}/2000`;
     });
   }
+
+  // Ticket: somente números (vale também para texto colado)
+  document.getElementById("rel-ticket")?.addEventListener("input", e => {
+    e.target.value = e.target.value.replace(/\D/g, "");
+  });
 }
 
 function coletarItensSelecionadosParaRelatorio() {
@@ -335,7 +396,7 @@ function coletarItensSelecionadosParaRelatorio() {
         codigo: linha.querySelector(".item-codigo").textContent.trim(),
         descricao: linha.querySelector(".item-descricao").textContent.trim(),
         unidade: linha.querySelector(".item-unidade").textContent.trim(),
-        quantidade: linha.querySelector(".item-qtd").value,
+        quantidade: lerQuantidade(linha.querySelector(".item-qtd")).toLocaleString("pt-br", { maximumFractionDigits: 2 }),
         valorUnit: linha.querySelector(".item-valor-unit").textContent.trim(),
         valorTotal: linha.querySelector(".item-valor-total").textContent.trim()
       });
@@ -382,7 +443,7 @@ window.gerarRelatorioPDF = function () {
   const doc = new jsPDF({ unit: "pt", format: "a4" });
   const margem = 40;
   const largura = doc.internal.pageSize.getWidth();
-  const MARCA_INSTITUCIONAL = "TJRS - DIPRED/DMAN";
+  const MARCA_INSTITUCIONAL = "TJRS - DIPRED-DMAN";
   const CORE_PRIMARIA = [71, 79, 92];
   const CORE_TEXTO = [45, 50, 59];
   const CORE_MUTED = [130, 136, 145];

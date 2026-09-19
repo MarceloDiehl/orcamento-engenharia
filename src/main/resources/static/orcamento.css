@@ -10,22 +10,20 @@
   row-gap: 10px;
 }
 
-.header-sticky #titulo {
+.header-sticky .wordmark-text {
   white-space: normal;
 }
 
-.header-sticky .d-flex.align-items-center.gap-4 {
+.header-toolbar {
   flex-wrap: wrap;
   justify-content: center;
+  row-gap: 6px;
 }
 
-.header-sticky .btn-circular {
-  flex-shrink: 0;
-}
-
-/* Remove a animação de rotação do #btn-reset herdada de style.css (mantém hover igual aos demais ícones) */
-#btn-reset:hover {
-  transform: none;
+@media (max-width: 560px) {
+  .header-sticky .wordmark-text .sub-titulo {
+    display: none;
+  }
 }
 
 .barra-orcamento {
@@ -200,16 +198,6 @@
 .linha-item .item-qtd {
   text-align: center !important;
   font-weight: 400;
-}
-
-.linha-item .item-qtd.sem-spin::-webkit-inner-spin-button,
-.linha-item .item-qtd.sem-spin::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.linha-item .item-qtd.sem-spin {
-  -moz-appearance: textfield;
 }
 
 .linha-item.tem-valor .item-qtd {

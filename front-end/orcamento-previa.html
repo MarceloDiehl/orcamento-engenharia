@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DIPRED/DMAN | Automação de Orçamento de Engenharia</title>
+<title>DIPRED-DMAN | Automação de Orçamento de Engenharia</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -791,7 +791,7 @@ footer {
 <body class="d-flex flex-column min-vh-100">
 <header class="header-sticky">
   <div class="d-flex justify-content-between align-items-center">
-    <a href="#" id="titulo" style="text-decoration: none;" onclick="window.irParaPaginaPrincipal(); return false;">DIPRED/DMAN
+    <a href="#" id="titulo" style="text-decoration: none;" onclick="window.irParaPaginaPrincipal(); return false;">DIPRED-DMAN
       | <span class="sub-titulo">Automação de Orçamento de Engenharia</span></a>
     <div class="d-flex align-items-center gap-4">
       <div class="d-flex gap-2 ms-2 ps-3 align-items-center">
@@ -905,7 +905,7 @@ footer {
     <small>
       <a href="#" class="text-decoration-none text-muted" data-bs-toggle="modal"
          data-bs-target="#modalInformacoes">
-        © 2026 DIPRED/DMAN | Tribunal de Justiça - RS
+        © 2026 DIPRED-DMAN | Tribunal de Justiça - RS
       </a>
     </small>
   </div>
@@ -918,7 +918,7 @@ footer {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p><b>DIPRED/DMAN</b></p>
+        <p><b>DIPRED-DMAN</b></p>
         <p>Versão do Sistema: 1.0.0 (Setembro/2026)</p>
         <hr>
         <p class="termos text-muted small">
@@ -932,7 +932,7 @@ footer {
           <br><br>
           <strong>Limites de Uso e Distribuição</strong><br>
           Ambiente Restrito: O uso desta aplicação é restrito à rede privada e aos servidores autorizados
-          pelo DIPRED/DMAN. É expressamente proibida a hospedagem ou execução em servidores externos não
+          pelo DIPRED-DMAN. É expressamente proibida a hospedagem ou execução em servidores externos não
           homologados pelo departamento, exceto manutenção em repositório de versionamento do autor do
           projeto mediante ocultação de dados sensiveis ou confidenciais.
           <br><br>
@@ -1346,7 +1346,7 @@ window.gerarRelatorioPDF = function () {
   const doc = new jsPDF({ unit: "pt", format: "a4" });
   const margem = 40;
   const largura = doc.internal.pageSize.getWidth();
-  const RODAPE_INSTITUCIONAL = "Tribunal de Justiça - DIPRED/DMAN";
+  const RODAPE_INSTITUCIONAL = "Tribunal de Justiça - DIPRED-DMAN";
   let y = 34;
 
   doc.setFont("helvetica", "normal");

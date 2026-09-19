@@ -108,7 +108,15 @@ font-weight: 500;
   flex-direction: column;
 }
 
-#titulo {
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  min-width: 0;
+}
+
+.wordmark-text {
   white-space: nowrap;
 }
 
@@ -137,28 +145,70 @@ font-weight: 500;
   border-bottom-color: var(--primary-color);
 }
 
-.btn-circular {
-  width: 32px;
-  height: 32px;
-  border-radius: 50% !important;
+.header-toolbar {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 0 !important;
-  transition: all 0.2s ease-in-out;
-  border: 1px solid #ddd;
-  color: #666;
-  background-color: #fff;
+  gap: 14px;
 }
 
-#btn-reset:hover, #btn-login:hover {
-  color: #fff;
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
-#btn-reset:hover {
-  transform: rotate(90deg);
+.pill-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: transparent;
+  color: #6c757d;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 7px 11px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.14s ease, color 0.14s ease;
+}
+
+.pill-btn:hover {
+  background: var(--bg-light);
+  color: var(--primary-color);
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 20px;
+  background: #e2e5e8;
+}
+
+.pill-btn-auth {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(71, 79, 92, 0.18);
+  background: rgba(71, 79, 92, 0.08);
+  color: var(--primary-color);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.14s ease, border-color 0.14s ease;
+}
+
+.pill-btn-auth:hover {
+  background: rgba(71, 79, 92, 0.16);
+  border-color: rgba(71, 79, 92, 0.3);
+}
+
+.pill-btn:focus-visible,
+.pill-btn-auth:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
 }
 
 /* 4. COMPONENTES DE FORMULÁRIO E CARDS */

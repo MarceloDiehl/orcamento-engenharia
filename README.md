@@ -1,8 +1,8 @@
-# Sistema de Orçamento de Engenharia - DIPRED/DMAN - TJRS
+# Sistema de Orçamento de Engenharia - DIPRED-DMAN - TJRS
 
 ## Visão geral
 
-Sistema web desenvolvido para automatizar o cálculo de orçamentos de serviços de engenharia (materiais com instalação, diagnósticos e manutenção, locação de equipamentos) do DIPRED/DMAN (Tribunal de Justiça do Rio Grande do Sul - TJRS). O sistema calcula valores por item de acordo com a comarca e o lote/empresa contratada, permite gerar um relatório em PDF do orçamento montado e disponibiliza uma área administrativa para atualização dos preços vigentes.
+Sistema web desenvolvido para automatizar o cálculo de orçamentos de serviços de engenharia (materiais com instalação, diagnósticos e manutenção, locação de equipamentos) do DIPRED-DMAN (Tribunal de Justiça do Rio Grande do Sul - TJRS). O sistema calcula valores por item de acordo com a comarca e o lote/empresa contratada, permite gerar um relatório em PDF do orçamento montado e disponibiliza uma área administrativa para atualização dos preços vigentes.
 
 O sistema proporciona:
 
@@ -17,7 +17,7 @@ O sistema permanece aplicável independentemente da empresa contratada via licit
 
 ## Autoria
 
-Desenvolvido por Marcelo Diehl, para uso do DIPRED/DMAN - Tribunal de Justiça do Rio Grande do Sul (TJRS).
+Desenvolvido por Marcelo Diehl, para uso do DIPRED-DMAN - Tribunal de Justiça do Rio Grande do Sul (TJRS).
 
 A propriedade intelectual do código-fonte pertence ao autor, com cessão integral de uso ao Tribunal de Justiça do RS para fins institucionais.
 
@@ -180,11 +180,19 @@ Ou em modo de desenvolvimento:
 ./mvnw spring-boot:run
 ```
 
+### Pasta `executavel/` (implantação no servidor)
+
+A pasta `executavel/` contém o `server_dipred_dman.bat`. Para implantar, coloque o `.jar` gerado (`target/orcamento-0.0.1-SNAPSHOT.jar`) dentro dessa pasta e copie a pasta inteira para o computador servidor. O `.bat` roda o `.jar` que estiver na mesma pasta em que ele está, independentemente do caminho, e mantém uma janela de console aberta: fechar a janela (ou CTRL+C) encerra o servidor. O `.jar` não é versionado no Git.
+
+Requisitos no servidor: Java 17 ou superior e MySQL com o banco criado pelo script (`db/dipred_orcamento_db.sql`).
+
 ### Acesso
 
 ```
 http://localhost:8082
 ```
+
+Para acessar de outras máquinas da rede, libere a porta 8082 no firewall do servidor e use `http://IP-DO-SERVIDOR:8082`.
 
 ---
 
