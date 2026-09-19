@@ -259,12 +259,19 @@ font-weight: 500;
 .btn-toggle-pass {
   position: absolute;
   right: 0;
-  top: 50%;
-  transform: translateY(-10%);
+  top: 0;
+  bottom: 2px; /* desconta a borda inferior do campo, para centralizar no texto */
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
   background: none;
   border: none;
   color: #adb5bd;
   transition: color 0.1s;
+}
+
+.btn-toggle-pass svg {
+  display: block;
 }
 
 .btn-toggle-pass:hover {

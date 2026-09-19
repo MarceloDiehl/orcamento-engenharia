@@ -37,6 +37,23 @@ async function carregarDadosOrcamento() {
   renderizarGrupos();
 }
 
+// Busca os preços atuais no servidor e reaplica nas linhas já renderizadas, sem tocar nas quantidades digitadas
+window.atualizarPrecosOrcamento = async function () {
+  try {
+    const grupos = await fetch("/api/itens-orcamento").then(r => r.json());
+    OrcamentoState.grupos = grupos;
+
+    grupos.forEach(g => g.subgrupos.forEach(sg => sg.itens.forEach(item => {
+      const input = document.querySelector(`.linha-item[data-codigo="${item.codigo}"] .item-qtd`);
+      if (input) input.dataset.precos = JSON.stringify(item.precos);
+    })));
+
+    recalcularTudo();
+  } catch (e) {
+    console.error("Não foi possível atualizar os preços:", e);
+  }
+};
+
 function preencherSelectComarcas() {
   const sel = document.getElementById("orc-comarca");
   if (!sel) return;

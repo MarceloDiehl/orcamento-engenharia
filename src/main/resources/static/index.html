@@ -270,6 +270,7 @@ window.irParaPaginaPrincipal = function () {
   window.__ADMIN_AUTH__ = null;
   window.__ADMIN_USER__ = null;
   mostrarPaginaOrcamento();
+  window.atualizarPrecosOrcamento?.(); // sincroniza preços alterados na administração, mantendo as quantidades
 };
 
 window.irParaLogin = function () {
@@ -382,6 +383,8 @@ window.confirmarAtualizacao = async function () {
     });
     if (resp.status === 401) throw new Error("Sessão administrativa expirada. Faça login novamente.");
     if (!resp.ok) throw new Error("Falha na comunicação com o servidor");
+
+    window.atualizarPrecosOrcamento?.();
 
     Swal.fire({
       title: "Sucesso!",
