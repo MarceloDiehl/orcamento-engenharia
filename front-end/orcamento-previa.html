@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DIPRED/DMAN | Automação de Orçamento de Engenharia</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<style>
+
+/* @autor Marcelo Diehl - DITIC-DSUP */
+
+ /* 1. VARIÁVEIS E BASE */
+
+:root {
+  --primary-color: #474f5c;
+  --success-color: #198754;
+  --bg-light: #f4f7f6;
+  --accent-default: #ccc;
+}
+
+body {
+  background-color: var(--bg-light);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Inter", sans-serif;
+  margin: 0;
+}
+
+/* 2. CONTAINER PRINCIPAL (CARD GLOBAL) */
+
+.container-global {
+  background: #ffffff;
+  width: 95%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 30px 5px 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.paragrafo-configuracao {
+  margin-top: 20px;
+  background: #ffffff;
+}
+
+.container-configuracao {
+  padding: 0 12px 12px 12px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+}
+
+.card-body, .accent-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 12px;
+  height: 100%;
+  position: relative;
+  transition: transform 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.accent-card {
+  border-top: 4px solid var(--accent-color);
+}
+
+.titulo-configuracao, #titulo {
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  color: var(--primary-color);
+  margin-bottom: 0;
+}
+
+.sub-titulo{
+font-weight: 500;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  color: var(--primary-color);
+  margin-bottom: 0;
+}
+
+.accent-card .dropdown-item {
+    font-size: 12px !important;
+}
+
+.p-configuracao {
+  font-size: 14px;
+  margin-top: 10px;
+  letter-spacing: -0.02em;
+  text-align: justify;
+}
+
+.resumo-card {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* 3. HEADER STICKY (NAVBAR) */
+.header-sticky {
+  background: #ffffff;
+  border-bottom: 1px solid #e6e6e6;
+  width: 95%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 30px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+#titulo {
+  white-space: nowrap;
+}
+
+.line-sticky {
+  margin: 20px 0 0 0;
+  border-color: #bebebe;
+  opacity: 0.1;
+}
+
+.nav-link-custom {
+  text-decoration: none;
+  color: #6c757d;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 4px;
+}
+
+.nav-link-custom:hover, .nav-link-custom.active {
+  color: var(--primary-color);
+}
+
+.nav-link-custom.active {
+  font-weight: 700;
+  border-bottom-color: var(--primary-color);
+}
+
+.btn-circular {
+  width: 32px;
+  height: 32px;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid #ddd;
+  color: #666;
+  background-color: #fff;
+}
+
+#btn-reset:hover, #btn-login:hover {
+  color: #fff;
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+#btn-reset:hover {
+  transform: rotate(90deg);
+}
+
+/* 4. COMPONENTES DE FORMULÁRIO E CARDS */
+.accent-card b {
+  display: block;
+  font-size: 12px;
+  color: var(--primary-color);
+  margin-bottom: 5px;
+}
+
+.form-label {
+  font-size: 12px;
+  margin: 2px 0;
+  color: #555;
+}
+
+.form-label-atualizar {
+  font-size: 13px;
+  margin: 5px 5px 5px 0;
+  color: #555;
+  font-weight: 500;
+}
+
+.spinner {
+  border-color: #ddd;
+  font-size: 12px !important;
+  height: 22px !important;
+  padding: 0 !important;
+  line-height: 22px;
+  border-radius: 4px;
+}
+
+.form-control-custom {
+  border: none !important;
+  border-bottom: 2px solid #dee2e6 !important;
+  border-radius: 0 !important;
+  padding: 0.5rem 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transition: border-color 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.form-control-custom:focus {
+  border-bottom-color: var(--primary-color) !important;
+}
+
+.btn-toggle-pass {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-10%);
+  background: none;
+  border: none;
+  color: #adb5bd;
+  transition: color 0.1s;
+}
+
+.btn-toggle-pass:hover {
+  color: var(--primary-color);
+}
+
+.file-upload {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.file-upload input[type="file"] {
+  display: none;
+}
+
+.alinhado-esquerda {
+  text-align: left !important;
+  display: block;
+  width: 100%;
+  font-size: 12px;
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+/* 5. VALOR TOTAL E FOOTER */
+.valor-total, #pagar-output {
+  font-size: 18px;
+  color: var(--primary-color);
+}
+
+#pagar-output {
+  font-weight: 700;
+  border: none;
+  background: transparent;
+}
+
+footer {
+  margin: 1px auto;
+}
+
+.footer small {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  opacity: 0.6;
+}
+
+/* 6. MODAL E EXTRAS */
+.modal-content {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  background-color: var(--bg-light);
+  border-bottom: 1px solid #eee;
+  border-radius: 12px 12px 0 0;
+}
+
+.modal-title {
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.termos {
+  font-size: 12px;
+  text-align: justify;
+  line-height: 1.4;
+}
+
+.separacao-configuracao {
+  margin: 0 0 5px 0;
+}
+
+.container-autenticacao .btn-secondary,
+.container-configuracao .btn-secondary {
+  background-color: var(--primary-color);
+  border: none;
+  transition: all 0.3s;
+}
+
+.container-autenticacao .btn-secondary:hover {
+  background-color: #2c313a;
+}
+
+.container-configuracao .btn-secondary {
+  margin: 15px 0 10px 0;
+  padding: 10px 0 5px 0;
+}
+
+/* 7. RESPONSIVIDADE */
+@media (max-width: 980px) {
+  .header-sticky {
+    position: relative;
+  }
+  .header-sticky .d-flex.justify-content-between {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+}
+
+/* @autor Marcelo Diehl - DITIC-DSUP */
+/* Estende style.css (variáveis --primary-color, --bg-light, --accent-color já existentes) */
+
+/* 1. BARRA SUPERIOR DE SELEÇÃO (Comarca / Região / Lote / Empresa / Valor) */
+
+/* Ajuste responsivo do header (navbar) para não desencaixar em janelas estreitas */
+.header-sticky .d-flex.justify-content-between {
+  flex-wrap: wrap;
+  row-gap: 10px;
+}
+
+.header-sticky #titulo {
+  white-space: normal;
+}
+
+.header-sticky .d-flex.align-items-center.gap-4 {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.header-sticky .btn-circular {
+  flex-shrink: 0;
+}
+
+/* Remove a animação de rotação do #btn-reset herdada de style.css (mantém hover igual aos demais ícones) */
+#btn-reset:hover {
+  transform: none;
+}
+
+.barra-orcamento {
+  margin-bottom: 32px;
+}
+
+.barra-orcamento input[readonly] {
+  background-color: var(--bg-light);
+  color: var(--primary-color);
+  font-weight: 400;
+  cursor: default;
+}
+
+#orc-valor-total {
+  font-weight: 700;
+}
+
+/* 2. GRUPOS (ACCORDION) */
+.grupo-orcamento {
+  margin-bottom: 14px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.grupo-orcamento .accordion-button {
+  background: #fff;
+  border-left: 4px solid var(--grupo-cor, var(--primary-color));
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--primary-color);
+  letter-spacing: -0.01em;
+  padding: 12px 16px;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.grupo-orcamento .accordion-button:focus {
+  box-shadow: none;
+}
+
+.grupo-orcamento .accordion-button:not(.collapsed) {
+  background-color: #fafbfb;
+  box-shadow: none;
+  color: var(--primary-color);
+}
+
+.grupo-orcamento .accordion-button::after {
+  display: none;
+}
+
+.grupo-orcamento .toggle-simbolo {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid #c8ccd1;
+  background: transparent;
+  color: #9aa0a8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.grupo-orcamento .toggle-simbolo::before {
+  content: "+";
+}
+
+.grupo-orcamento .accordion-button:not(.collapsed) .toggle-simbolo::before {
+  content: "\2212";
+}
+
+.grupo-orcamento .titulo-grupo {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.grupo-orcamento .accordion-button .badge-qtd-grupo {
+  font-size: 10px;
+  font-weight: 600;
+  background: var(--grupo-cor, var(--primary-color));
+  color: #fff;
+  border-radius: 20px;
+  padding: 2px 9px;
+  margin-left: 10px;
+  flex-shrink: 0;
+}
+
+.grupo-orcamento .subtotal-grupo {
+  margin-left: auto;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #6c757d;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.subgrupo-orcamento {
+  padding: 4px 14px 10px 14px;
+  background: #fff;
+}
+
+.subgrupo-titulo {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #8a8f98;
+  letter-spacing: 0.02em;
+  margin: 10px 4px 6px 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px dashed #e6e6e6;
+}
+
+/* 4. LINHAS DE ITEM (grid responsivo) */
+.linha-cabecalho-item {
+  display: grid;
+  grid-template-columns: 62px 1fr 56px 92px 118px 128px;
+  gap: 10px;
+  padding: 2px 8px 6px 8px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #6c757d;
+  text-transform: none;
+}
+
+.linha-item {
+  display: grid;
+  grid-template-columns: 62px 1fr 56px 92px 118px 128px;
+  gap: 10px;
+  align-items: center;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.15s;
+}
+
+.linha-item:hover {
+  background-color: #fafbfc;
+}
+
+.linha-item.tem-valor {
+  background-color: #f0f8f4;
+}
+
+.linha-item .item-codigo {
+  font-size: 11px;
+  font-weight: 600;
+  color: #9aa0a8;
+  white-space: nowrap;
+}
+
+.linha-item .item-descricao {
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: #333;
+  text-align: left;
+}
+
+.linha-item .item-unidade {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6c757d;
+  text-align: center;
+  background: var(--bg-light);
+  border-radius: 4px;
+  padding: 3px 0;
+}
+
+.linha-item .item-qtd {
+  text-align: center !important;
+  font-weight: 400;
+}
+
+.linha-item .item-qtd.sem-spin::-webkit-inner-spin-button,
+.linha-item .item-qtd.sem-spin::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.linha-item .item-qtd.sem-spin {
+  -moz-appearance: textfield;
+}
+
+.linha-item.tem-valor .item-qtd {
+  font-weight: 700;
+}
+
+.linha-item.tem-valor .item-valor-unit,
+.linha-item.tem-valor .item-valor-total {
+  font-weight: 700;
+}
+
+.linha-item .item-valor-unit,
+.linha-item .item-valor-total {
+  font-size: 12.5px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.linha-item .item-valor-unit {
+  color: #6c757d;
+}
+
+.linha-item .item-valor-total {
+  color: #6c757d;
+}
+
+.linha-item.indisponivel .item-descricao,
+.linha-item.indisponivel .item-unidade {
+  opacity: 0.5;
+}
+
+/* 6. TABELA DE PREÇOS POR EMPRESA (tela de admin, pós-login) */
+.tabela-precos-admin-wrap {
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.tabela-precos-admin {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  background: #fff;
+  min-width: 900px;
+}
+
+.tabela-precos-admin thead th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-light);
+  color: var(--primary-color);
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  padding: 8px 6px;
+  border-bottom: 2px solid #e2e5e9;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.tabela-precos-admin thead th small {
+  display: block;
+  font-weight: 500;
+  color: #8a8f98;
+  font-size: 10px;
+}
+
+.tabela-precos-admin thead th:nth-child(1),
+.tabela-precos-admin thead th:nth-child(2) {
+  text-align: left;
+}
+
+.tabela-precos-admin tbody td {
+  padding: 6px;
+  border-bottom: 1px solid #f0f1f3;
+  vertical-align: middle;
+}
+
+.tabela-precos-admin .linha-grupo-admin td {
+  background: var(--bg-light);
+  font-weight: 700;
+  font-size: 12.5px;
+  color: var(--primary-color);
+  padding: 8px 10px;
+}
+
+.tabela-precos-admin .linha-subgrupo-admin td {
+  background: #fafbfc;
+  font-weight: 600;
+  font-size: 11px;
+  color: #8a8f98;
+  padding: 5px 10px;
+  text-transform: none;
+}
+
+.tabela-precos-admin .col-item-codigo {
+  font-weight: 600;
+  color: #545c68;
+  white-space: nowrap;
+}
+
+.tabela-precos-admin .col-item-descricao {
+  min-width: 260px;
+  line-height: 1.3;
+}
+
+.tabela-precos-admin .col-item-unidade {
+  text-align: center;
+  color: #6c757d;
+  font-weight: 600;
+}
+
+.tabela-precos-admin input.preco-admin {
+  width: 90px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.tabela-precos-admin input.preco-admin:disabled {
+  background-color: #f5f5f5;
+  color: #b0b4b9;
+}
+
+.linha-item.item-oculto {
+  display: none;
+}
+
+/* 5. RESPONSIVO (empilha em telas pequenas) */
+@media (max-width: 768px) {
+  .linha-cabecalho-item {
+    display: none;
+  }
+
+  .linha-item {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "codigo unidade"
+      "descricao descricao"
+      "qtd unit"
+      "qtd total";
+    border-bottom: 1px solid #eee;
+    padding: 10px 8px;
+  }
+
+  .linha-item .item-codigo { grid-area: codigo; }
+  .linha-item .item-descricao { grid-area: descricao; margin: 4px 0; }
+  .linha-item .item-unidade { grid-area: unidade; justify-self: end; }
+  .linha-item .item-qtd { grid-area: qtd; }
+  .linha-item .item-valor-unit { grid-area: unit; }
+  .linha-item .item-valor-total { grid-area: total; }
+
+  .linha-item .item-valor-unit::before {
+    content: "Unit.: ";
+    font-weight: 400;
+    color: #adb5bd;
+  }
+  .linha-item .item-valor-total::before {
+    content: "Total: ";
+    font-weight: 400;
+    color: #adb5bd;
+  }
+}
+
+/* 7. EASTER EGG (oculto - overlay do mini-jogo) */
+/* @autor Marcelo Diehl - DITIC-DSUP */
+/* EASTER EGG: overlay do mini "Space Invaders" acionado pelos créditos */
+
+.nome-autor-easter-egg {
+  cursor: default;
+}
+
+#easter-egg-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 18, 22, 0.85);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.easter-egg-caixa {
+  background: #12151a;
+  border-radius: 10px;
+  padding: 14px 18px 18px 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  color: #e8e8e8;
+  font-family: "Inter", sans-serif;
+}
+
+.easter-egg-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #cfd3d8;
+}
+
+#easter-egg-fechar {
+  background: none;
+  border: none;
+  color: #cfd3d8;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.easter-egg-placar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 6px;
+  color: #9aa0a8;
+}
+
+#easter-egg-canvas {
+  background: #05070a;
+  border: 1px solid #2a2e35;
+  border-radius: 6px;
+  display: block;
+}
+
+.easter-egg-instrucoes {
+  font-size: 11px;
+  color: #6c757d;
+  margin: 8px 0 0 0;
+}
+
+.easter-egg-fim {
+  margin-top: 10px;
+}
+
+.easter-egg-fim p {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+</style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+<header class="header-sticky">
+  <div class="d-flex justify-content-between align-items-center">
+    <a href="#" id="titulo" style="text-decoration: none;" onclick="window.irParaPaginaPrincipal(); return false;">DIPRED/DMAN
+      | <span class="sub-titulo">Automação de Orçamento de Engenharia</span></a>
+    <div class="d-flex align-items-center gap-4">
+      <div class="d-flex gap-2 ms-2 ps-3 align-items-center">
+        <button type="button" class="btn btn-outline-secondary btn-sm btn-circular" id="btn-home" title="Página principal"
+                onclick="window.irParaPaginaPrincipal()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+            <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+          </svg>
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-sm btn-circular" id="btn-reset"
+                title="Limpar quantidades" onclick="window.limparOrcamento && window.limparOrcamento()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
+            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
+          </svg>
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-sm btn-circular" id="btn-print"
+                title="Gerar relatório (PDF)" data-bs-toggle="modal" data-bs-target="#modalRelatorio">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
+            <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1"/>
+            <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1"/>
+          </svg>
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-sm btn-circular" id="btn-login" title="Login"
+                onclick="window.irParaLogin()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+               class="bi bi-person-badge" viewBox="0 0 16 16">
+            <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+            <path d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="container-global">
+<div id="content-area">
+<!-- @autor Marcelo Diehl - DITIC-DSUP -->
+<div class="container-cds mt-3 mb-0">
+
+  <div class="barra-orcamento">
+    <div class="row g-2 align-items-end">
+      <div class="col-6 col-lg-4">
+        <label class="form-label"><b>Comarca:</b></label>
+        <select class="form-select form-select-sm" id="orc-comarca">
+          <option selected disabled>Selecione a Comarca</option>
+        </select>
+      </div>
+      <div class="col-3 col-lg-1">
+        <label class="form-label"><b>Região:</b></label>
+        <input type="text" id="orc-regiao" class="form-control form-control-sm text-center" readonly>
+      </div>
+      <div class="col-3 col-lg-1">
+        <label class="form-label"><b>Lote:</b></label>
+        <input type="text" id="orc-lote" class="form-control form-control-sm text-center" readonly>
+      </div>
+      <div class="col-6 col-lg-3">
+        <label class="form-label"><b>Empresa:</b></label>
+        <input type="text" id="orc-empresa" class="form-control form-control-sm text-center" readonly>
+      </div>
+      <div class="col-6 col-lg-3">
+        <label class="form-label"><b>Valor de Orçamento:</b></label>
+        <input type="text" value="R$ 0,00" id="orc-valor-total" class="form-control form-control-sm text-center" readonly>
+      </div>
+    </div>
+  </div>
+
+  <div id="orc-lista-grupos"></div>
+
+</div>
+
+<!-- Modal: geração de relatório em PDF (aberto pelo ícone de impressão no header) -->
+<div class="modal fade" id="modalRelatorio" tabindex="-1" aria-labelledby="modalRelatorioLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalRelatorioLabel">Gerar Relatório do Orçamento</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="form-relatorio">
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <label for="rel-ticket" class="form-label small"><b>Ticket</b></label>
+              <input type="text" inputmode="numeric" class="form-control form-control-sm" id="rel-ticket" placeholder="Nº do ticket">
+            </div>
+            <div class="col-6">
+              <label for="rel-tecnico" class="form-label small"><b>Técnico Responsável</b></label>
+              <input type="text" class="form-control form-control-sm" id="rel-tecnico" placeholder="Nome do técnico">
+            </div>
+          </div>
+          <div class="mb-1">
+            <label for="rel-descricao" class="form-label small"><b>Descrição</b></label>
+            <textarea class="form-control form-control-sm" id="rel-descricao" rows="4" maxlength="1000" placeholder="Observações sobre o atendimento..."></textarea>
+            <small class="text-muted float-end" id="rel-descricao-contador">0/1000</small>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="window.gerarRelatorioPDF()">Gerar Relatório PDF</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</main>
+<footer class="footer mt-auto py-3">
+  <div class="d-flex justify-content-between align-items-center px-2">
+    <small>
+      <a href="#" class="text-decoration-none text-muted" data-bs-toggle="modal"
+         data-bs-target="#modalInformacoes">
+        © 2026 DIPRED/DMAN | Tribunal de Justiça - RS
+      </a>
+    </small>
+  </div>
+</footer>
+<div class="modal fade" id="modalInformacoes" tabindex="-1" aria-labelledby="modalInformacoesLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalInformacoesLabel">Informações do Sistema</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><b>DIPRED/DMAN</b></p>
+        <p>Versão do Sistema: 1.0.0 (Setembro/2026)</p>
+        <hr>
+        <p class="termos text-muted small">
+          <strong>Termos de Uso e Propriedade Técnica</strong><br>
+          <strong>Autoria e Propriedade</strong><br>
+          Este software foi desenvolvido por <span class="nome-autor-easter-egg" onclick="window.registrarCliqueEasterEgg()">Marcelo Diehl</span> para uso exclusivo da Direção de
+          Tecnologia da Informação e Comunicação (DITIC) do Tribunal de Justiça do Rio Grande do Sul (TJRS). A
+          propriedade intelectual do código-fonte
+          pertence ao autor, sendo o direito de uso cedido integralmente ao Tribunal de Justiça do Rio
+          Grande do Sul (TJRS) para fins institucionais.
+          <br><br>
+          <strong>Limites de Uso e Distribuição</strong><br>
+          Ambiente Restrito: O uso desta aplicação é restrito à rede privada e aos servidores autorizados
+          pelo DIPRED/DMAN. É expressamente proibida a hospedagem ou execução em servidores externos não
+          homologados pelo departamento, exceto manutenção em repositório de versionamento do autor do
+          projeto mediante ocultação de dados sensiveis ou confidenciais.
+          <br><br>
+          <strong>Finalidade</strong><br>
+          A ferramenta destina-se exclusivamente ao auxílio de cálculos técnicos e processamento de dados
+          internos do setor.
+          <br><br>
+          <strong>Modificações e Manutenção (Código Aberto Setorial)</strong><br>
+          É permitida a leitura, cópia e modificação do código-fonte por outros membros e colaboradores
+          técnicos do departamento, visando a continuidade, correção de bugs e evolução das
+          funcionalidades.
+          <br><br>
+          Toda e qualquer modificação derivada deve manter os créditos do autor original e ser devidamente
+          documentada no histórico de versionamento interno.
+          <br><br>
+          <strong>Isenção de Responsabilidade</strong><br>
+          O software é fornecido "no estado em que se encontra" (as is). O autor não se responsabiliza por
+          resultados derivados de entradas de dados incorretas ou por usos que firam as políticas de
+          segurança da informação do TJRS. Todos os dados de entrada e de saída do programa deverão ser conferidos pelo usuário.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+window.__DADOS_PREVIA__ = {
+  comarcas: [{"comarca": "Porto Alegre", "lote": 5, "regiao": "1, 2 e 11"}, {"comarca": "Agudo", "lote": 2, "regiao": "6"}, {"comarca": "Alegrete", "lote": 3, "regiao": "5"}, {"comarca": "Alvorada", "lote": 1, "regiao": "3"}, {"comarca": "Antônio Prado", "lote": 4, "regiao": "9"}, {"comarca": "Arroio do Meio", "lote": 2, "regiao": "6"}, {"comarca": "Arroio do Tigre", "lote": 2, "regiao": "6"}, {"comarca": "Arroio Grande", "lote": 2, "regiao": "4"}, {"comarca": "Arvorezinha", "lote": 2, "regiao": "6"}, {"comarca": "Augusto Pestana", "lote": 3, "regiao": "7"}, {"comarca": "Bagé", "lote": 3, "regiao": "5"}, {"comarca": "Barra do Ribeiro", "lote": 1, "regiao": "3"}, {"comarca": "Bento Gonçalves", "lote": 4, "regiao": "9"}, {"comarca": "Bom Jesus", "lote": 4, "regiao": "9"}, {"comarca": "Butiá", "lote": 2, "regiao": "4"}, {"comarca": "Caçapava do Sul", "lote": 3, "regiao": "5"}, {"comarca": "Cacequi", "lote": 3, "regiao": "5"}, {"comarca": "Cachoeira do Sul", "lote": 3, "regiao": "5"}, {"comarca": "Cachoeirinha", "lote": 1, "regiao": "3"}, {"comarca": "Camaquã", "lote": 2, "regiao": "4"}, {"comarca": "Campina das Missões", "lote": 3, "regiao": "7"}, {"comarca": "Campo Bom", "lote": 1, "regiao": "10"}, {"comarca": "Campo Novo", "lote": 3, "regiao": "7"}, {"comarca": "Candelária", "lote": 2, "regiao": "6"}, {"comarca": "Canela", "lote": 4, "regiao": "9"}, {"comarca": "Canguçu", "lote": 2, "regiao": "4"}, {"comarca": "Canoas", "lote": 1, "regiao": "10"}, {"comarca": "Capão da Canoa", "lote": 1, "regiao": "3"}, {"comarca": "Carazinho", "lote": 4, "regiao": "8"}, {"comarca": "Carlos Barbosa", "lote": 4, "regiao": "9"}, {"comarca": "Casca", "lote": 4, "regiao": "8"}, {"comarca": "Catuípe", "lote": 3, "regiao": "7"}, {"comarca": "Caxias do Sul", "lote": 4, "regiao": "9"}, {"comarca": "Cerro Largo", "lote": 3, "regiao": "7"}, {"comarca": "Charqueadas", "lote": 2, "regiao": "4"}, {"comarca": "Constantina", "lote": 4, "regiao": "8"}, {"comarca": "Coronel Bicaco", "lote": 3, "regiao": "7"}, {"comarca": "Crissiumal", "lote": 3, "regiao": "7"}, {"comarca": "Cruz Alta", "lote": 2, "regiao": "6"}, {"comarca": "Dois Irmãos", "lote": 4, "regiao": "9"}, {"comarca": "Dom Pedrito", "lote": 3, "regiao": "5"}, {"comarca": "Eldorado do Sul", "lote": 1, "regiao": "3"}, {"comarca": "Eldorado do Sul", "lote": 3, "regiao": "5"}, {"comarca": "Encantado", "lote": 2, "regiao": "6"}, {"comarca": "Encruzilhada do Sul", "lote": 3, "regiao": "5"}, {"comarca": "Erechim", "lote": 4, "regiao": "8"}, {"comarca": "Espumoso", "lote": 4, "regiao": "8"}, {"comarca": "Estância Velha", "lote": 1, "regiao": "10"}, {"comarca": "Esteio", "lote": 1, "regiao": "10"}, {"comarca": "Estrela", "lote": 2, "regiao": "6"}, {"comarca": "Farroupilha", "lote": 4, "regiao": "9"}, {"comarca": "Faxinal do Soturno", "lote": 2, "regiao": "6"}, {"comarca": "Feliz", "lote": 4, "regiao": "9"}, {"comarca": "Flores da Cunha", "lote": 4, "regiao": "9"}, {"comarca": "Frederico Westphalen", "lote": 3, "regiao": "7"}, {"comarca": "Garibaldi", "lote": 4, "regiao": "9"}, {"comarca": "Gaurama", "lote": 4, "regiao": "8"}, {"comarca": "General Câmara", "lote": 2, "regiao": "4"}, {"comarca": "Getúlio Vargas", "lote": 4, "regiao": "8"}, {"comarca": "Giruá", "lote": 3, "regiao": "7"}, {"comarca": "Gramado", "lote": 4, "regiao": "9"}, {"comarca": "Gravataí", "lote": 1, "regiao": "3"}, {"comarca": "Guaíba", "lote": 1, "regiao": "3"}, {"comarca": "Guaporé", "lote": 4, "regiao": "8"}, {"comarca": "Guarani das Missões", "lote": 3, "regiao": "7"}, {"comarca": "Herval", "lote": 2, "regiao": "4"}, {"comarca": "Horizontina", "lote": 3, "regiao": "7"}, {"comarca": "Ibirubá", "lote": 4, "regiao": "8"}, {"comarca": "Igrejinha", "lote": 4, "regiao": "9"}, {"comarca": "Ijuí", "lote": 3, "regiao": "7"}, {"comarca": "Iraí", "lote": 4, "regiao": "8"}, {"comarca": "Itaqui", "lote": 3, "regiao": "5"}, {"comarca": "Ivoti", "lote": 1, "regiao": "10"}, {"comarca": "Jaguarão", "lote": 2, "regiao": "4"}, {"comarca": "Jaguari", "lote": 3, "regiao": "5"}, {"comarca": "Júlio de Castilhos", "lote": 2, "regiao": "6"}, {"comarca": "Lagoa Vermelha", "lote": 4, "regiao": "8"}, {"comarca": "Lajeado", "lote": 2, "regiao": "6"}, {"comarca": "Lavras do Sul", "lote": 3, "regiao": "5"}, {"comarca": "Marau", "lote": 4, "regiao": "8"}, {"comarca": "Marcelino Ramos", "lote": 4, "regiao": "8"}, {"comarca": "Montenegro", "lote": 2, "regiao": "6"}, {"comarca": "Mostardas", "lote": 1, "regiao": "3"}, {"comarca": "Não-Me-Toque", "lote": 4, "regiao": "8"}, {"comarca": "Nonoai", "lote": 4, "regiao": "8"}, {"comarca": "Nova Petrópolis", "lote": 4, "regiao": "9"}, {"comarca": "Nova Prata", "lote": 4, "regiao": "9"}, {"comarca": "Novo Hamburgo", "lote": 1, "regiao": "10"}, {"comarca": "Osório", "lote": 1, "regiao": "3"}, {"comarca": "Palmares do Sul", "lote": 1, "regiao": "3"}, {"comarca": "Palmeira das Missões", "lote": 3, "regiao": "7"}, {"comarca": "Panambi", "lote": 3, "regiao": "7"}, {"comarca": "Parobé", "lote": 4, "regiao": "9"}, {"comarca": "Passo Fundo", "lote": 4, "regiao": "8"}, {"comarca": "Pedro Osório", "lote": 2, "regiao": "4"}, {"comarca": "Pelotas", "lote": 2, "regiao": "4"}, {"comarca": "Pinheiro Machado", "lote": 2, "regiao": "4"}, {"comarca": "Piratini", "lote": 2, "regiao": "4"}, {"comarca": "Planalto", "lote": 4, "regiao": "8"}, {"comarca": "Portão", "lote": 4, "regiao": "9"}, {"comarca": "Porto Xavier", "lote": 3, "regiao": "7"}, {"comarca": "Quaraí", "lote": 3, "regiao": "5"}, {"comarca": "Restinga Seca", "lote": 2, "regiao": "6"}, {"comarca": "Rio Grande", "lote": 2, "regiao": "4"}, {"comarca": "Rio Pardo ", "lote": 3, "regiao": "5"}, {"comarca": "Rodeio Bonito", "lote": 3, "regiao": "7"}, {"comarca": "Ronda Alta ", "lote": 4, "regiao": "8"}, {"comarca": "Rosário do Sul", "lote": 3, "regiao": "5"}, {"comarca": "Salto do Jacuí", "lote": 2, "regiao": "6"}, {"comarca": "Sananduva ", "lote": 4, "regiao": "8"}, {"comarca": "Santa Bárbara do Sul ", "lote": 4, "regiao": "8"}, {"comarca": "Santa Cruz do Sul", "lote": 2, "regiao": "6"}, {"comarca": "Santa Maria", "lote": 2, "regiao": "6"}, {"comarca": "Santa Rosa", "lote": 3, "regiao": "7"}, {"comarca": "Santa Vitória do Palmar", "lote": 2, "regiao": "4"}, {"comarca": "Santana do Livramento", "lote": 3, "regiao": "5"}, {"comarca": "Santiago", "lote": 3, "regiao": "5"}, {"comarca": "Santo Ângelo", "lote": 3, "regiao": "7"}, {"comarca": "Santo Antônio da Patrulha", "lote": 1, "regiao": "3"}, {"comarca": "Santo Antônio das Missões", "lote": 3, "regiao": "7"}, {"comarca": "Santo Augusto", "lote": 3, "regiao": "7"}, {"comarca": "Santo Cristo", "lote": 3, "regiao": "7"}, {"comarca": "São Borja", "lote": 3, "regiao": "5"}, {"comarca": "São Francisco de Assis", "lote": 3, "regiao": "5"}, {"comarca": "São Francisco de Paula", "lote": 4, "regiao": "9"}, {"comarca": "São Gabriel", "lote": 3, "regiao": "5"}, {"comarca": "São Jerônimo", "lote": 2, "regiao": "4"}, {"comarca": "São José do Norte", "lote": 2, "regiao": "4"}, {"comarca": "São José do Ouro", "lote": 4, "regiao": "8"}, {"comarca": "São Leopoldo", "lote": 1, "regiao": "10"}, {"comarca": "São Lourenço do Sul", "lote": 2, "regiao": "4"}, {"comarca": "São Luiz Gonzaga", "lote": 3, "regiao": "7"}, {"comarca": "São Marcos", "lote": 4, "regiao": "9"}, {"comarca": "São Pedro do Sul", "lote": 2, "regiao": "6"}, {"comarca": "São Sebastião do Caí", "lote": 4, "regiao": "9"}, {"comarca": "São Sepé", "lote": 3, "regiao": "5"}, {"comarca": "São Valentim", "lote": 4, "regiao": "8"}, {"comarca": "São Vicente do Sul", "lote": 3, "regiao": "5"}, {"comarca": "Sapiranga", "lote": 1, "regiao": "10"}, {"comarca": "Sapucaia do Sul", "lote": 1, "regiao": "10"}, {"comarca": "Sarandi", "lote": 4, "regiao": "8"}, {"comarca": "Seberi", "lote": 3, "regiao": "7"}, {"comarca": "Sobradinho", "lote": 2, "regiao": "6"}, {"comarca": "Soledade", "lote": 4, "regiao": "8"}, {"comarca": "Tapejara", "lote": 4, "regiao": "8"}, {"comarca": "Tapera", "lote": 4, "regiao": "8"}, {"comarca": "Tapes", "lote": 2, "regiao": "4"}, {"comarca": "Taquara", "lote": 4, "regiao": "9"}, {"comarca": "Taquari", "lote": 2, "regiao": "6"}, {"comarca": "Tenente Portela", "lote": 3, "regiao": "7"}, {"comarca": "Terra de Areia", "lote": 1, "regiao": "3"}, {"comarca": "Teutônia", "lote": 2, "regiao": "6"}, {"comarca": "Torres", "lote": 1, "regiao": "3"}, {"comarca": "Tramandaí", "lote": 1, "regiao": "3"}, {"comarca": "Três Coroas", "lote": 4, "regiao": "9"}, {"comarca": "Três de Maio", "lote": 3, "regiao": "7"}, {"comarca": "Três Passos", "lote": 3, "regiao": "7"}, {"comarca": "Triunfo", "lote": 2, "regiao": "4"}, {"comarca": "Tucunduva", "lote": 3, "regiao": "7"}, {"comarca": "Tupanciretã", "lote": 2, "regiao": "6"}, {"comarca": "Uruguaiana", "lote": 3, "regiao": "5"}, {"comarca": "Vacaria", "lote": 4, "regiao": "9"}, {"comarca": "Venâncio Aires", "lote": 2, "regiao": "6"}, {"comarca": "Vera Cruz", "lote": 2, "regiao": "6"}, {"comarca": "Veranópolis", "lote": 4, "regiao": "9"}, {"comarca": "Viamão", "lote": 1, "regiao": "3"}],
+  lotes: [{"lote": 1, "empresa": "HM", "contrato": 120, "regioes": "3 e 10"}, {"lote": 2, "empresa": "FastLan", "contrato": 121, "regioes": "4 e 6"}, {"lote": 3, "empresa": "FastLan", "contrato": 122, "regioes": "5 e 7"}, {"lote": 4, "empresa": "Microcable", "contrato": 123, "regioes": "8 e 9"}, {"lote": 5, "empresa": "FastLan", "contrato": 124, "regioes": "1, 2 e 11"}],
+  grupos: [{"codigo": "1", "nome": "DIAGNÓSTICOS E SERVIÇOS DE MÃO-DE-OBRA", "subgrupos": [{"codigo": "1", "nome": "DIAGNÓSTICOS E SERVIÇOS DE MÃO-DE-OBRA", "itens": [{"codigo": "1.1", "descricao": "DIAGNÓSTICO, CORREÇÃO DE DEFEITOS E INSTALAÇÃO DE MATERIAIS FORNECIDOS PELO PODER JUDICIÁRIO", "unidade": "UN", "precos": [75.84, 64.59, 64.51, 72.59, 65.85]}, {"codigo": "1.2", "descricao": "DIAGNÓSTICO, CORREÇÃO DE DEFEITOS E INSTALAÇÃO DE MATERIAIS FORNECIDOS PELO PODER JUDICIÁRIO – URGENTE, EM HORÁRIO EXTRAORDINÁRIO", "unidade": "UN", "precos": ["N.A", "N.A ", "N.A", "N.A", 235.96]}, {"codigo": "1.3", "descricao": "REVISÃO DE SHAFTS", "unidade": "UN", "precos": [303.35, 258.32, 257.99, 290.31, 263.42]}, {"codigo": "1.4", "descricao": "REVISÃO E REAPERTO DE QUADROS ELÉTRICOS - INCLUINDO MEDIÇÕES DE TENSÃO E CORRENTE - EM HORÁRIO EXTRAORDINÁRIO", "unidade": "UN", "precos": [185.93, 158.34, 158.14, 177.96, 161.48]}, {"codigo": "1.5", "descricao": "SERVIÇO DE LIMPEZA E ORGANIZAÇÃO DE SHAFT DE ELÉTRICA/TELECOMUNICAÇÕES - INCLUSIVE EM HORÁRIO EXTRAORDINÁRIO", "unidade": "UN", "precos": [247.66, 210.91, 210.63, 237.03, 215.07]}], "virtual": true}]}, {"codigo": "2", "nome": "MATERIAIS COM INSTALAÇÃO", "subgrupos": [{"codigo": "2.1", "nome": "INFRAESTRUTURA", "itens": [{"codigo": "2.1.1", "descricao": "FORNECIMENTO E INSTALAÇÃO DE CANALETA EM ALUMÍNIO, 25X73 MM, PERFIL DUPLO, 25 MM, TIPO “D”, BRANCA COM TAMPA PLANA RANHURADA, INCLUINDO CURVAS HORIZONTAIS OU VERTICAIS, ADAPTADORES DE ELETRODUTO, CAIXAS DE DERIVAÇÃO, ARREMATES E TAMPAS TERMINAIS.", "unidade": "M", "precos": [241.25, 205.44, 205.19, 230.9, 209.51]}, {"codigo": "2.1.2", "descricao": "FORNECIMENTO E INSTALAÇÃO DE PORTA EQUIPAMENTOS PARA TRÊS BLOCOS MULTILINHAS PARA CANALETA EM ALUMÍNIO DE 25X73 MM (AXL), EM TERMOPLÁSTICO DE ENGENHARIA ABS/PC-V0, FIXADO NA CANALETA SOB PRESSÃO, BRANCO. INCLUI FORNECIMENTO DE ADAPTADOR SE PARA USO COM MODELO DE CALHA SLIM.", "unidade": "UN", "precos": [107.84, 91.85, 91.73, 103.23, 93.66]}, {"codigo": "2.1.3", "descricao": "FORNECIMENTO E INSTALAÇÃO DE CANALETA EM ALUMÍNIO EXTRUDADO 15X53 MM, COM TAMPA FIXÁVEL SEM A NECESSIDADE DE PARAFUSOS, ACABAMENTO NA COR BRANCA, INCLUINDO CURVAS HORIZONTAIS OU VERTICAIS, ADAPTADORES DE ELETRODUTOS, CAIXAS DE DERIVAÇÃO, ARREMATES E TAMPAS TERMINAIS", "unidade": "M", "precos": [142.17, 121.05, 120.9, 136.04, 123.46]}, {"codigo": "2.1.4", "descricao": "FORNECIMENTO E INSTALAÇÃO DE PORTA EQUIPAMENTOS PARA CANALETA EM ALUMÍNIO EXTRUDADO DE 15X53 MM (AXL), ACESSÓRIO PARA COLOCAÇÃO DE DISPOSITIVOS DE SAÍDA, FABRICADO EM TERMOPLÁSTICO DE ENGENHARIA ABS/PC-V0, COM CAPACIDADE PARA 2 (DOIS) MÓDULOS, BRANCO", "unidade": "UN", "precos": [50.95, 43.41, 43.33, 48.77, 44.25]}, {"codigo": "2.1.5", "descricao": "FORNECIMENTO E INSTALAÇÃO DE CANALETA EM ALUMÍNIO EXTRUDADO TIPO SLIM 14X53 MM, COM TAMPA FIXÁVEL SEM A NECESSIDADE DE PARAFUSOS, ACABAMENTO NA COR BRANCA, INCLUINDO CURVAS HORIZONTAIS OU VERTICAIS, ADAPTADORES DE ELETRODUTO, CAIXAS DE DERIVAÇÃO, ARREMATES E TAMPAS TERMINAIS", "unidade": "M", "precos": [172.21, 146.63, 146.45, 164.8, 149.54]}, {"codigo": "2.1.6", "descricao": "FORNECIMENTO E INSTALAÇÃO DE ELETRODUTO FLEXÍVEL METÁLICO DE ¾”, FABRICADO COM FITA DE AÇO GALVANIZADO SEM REVESTIMENTO, ACABAMENTO NA COR PRATA, CONECTOR MACHO REUTILIZÁVEL RETO PARA ELETRODUTO FLEXÍVEL METÁLICO NAS DUAS EXTREMIDADES", "unidade": "M", "precos": [32.38, 27.57, 27.55, 30.98, 28.11]}, {"codigo": "2.1.7", "descricao": "FORNECIMENTO E INSTALAÇÃO DE ELETRODUTO RÍGIDO METÁLICO, EM AÇO GALVANIZADO ELETROLITICAMENTE PARA INSTALAÇÃO EXTERNA A PAREDE, DE ¾”, INCLUINDO CURVAS, FIXAÇÕES, CONDULETES E ACABAMENTOS NECESSÁRIOS", "unidade": "M", "precos": [66.09, 56.26, 56.2, 63.25, 57.4]}, {"codigo": "2.1.8", "descricao": "FORNECIMENTO E INSTALAÇÃO DE ELETRODUTO RÍGIDO METÁLICO, EM AÇO GALVANIZADO A FOGO, PARA INSTALAÇÃO EXTERNA A PAREDE, DE ¾”, INCLUINDO CURVAS, FIXAÇÕES, CONDULETES E ACABAMENTOS NECESSÁRIOS", "unidade": "M", "precos": [85.3, 72.62, 72.53, 81.63, 74.07]}, {"codigo": "2.1.9", "descricao": "FORNECIMENTO E INSTALAÇÃO DE ELETROCALHA GALVANIZADA ELETROLITICAMENTE, VAZADA, 100X50MM, INCLUINDO CURVAS ADAPTADORES, CAIXAS DE DERIVAÇÃO, SUPORTES, FIXAÇÕES E ACABAMENTOS NECESSÁRIOS", "unidade": "M", "precos": [139.57, 118.87, 118.69, 133.56, 121.18]}, {"codigo": "2.1.10", "descricao": "QUADRO DE DISTRIBUIÇÃO DE ENERGIA, DE SOBREPOR", "unidade": "UN", "precos": [1261.6, 1074.34, 1073.01, 1207.41, 1095.58]}, {"codigo": "2.1.11", "descricao": "QUADRO DE COMANDO, DE SOBREPOR", "unidade": "UN", "precos": [697.4, 593.89, 593.15, 667.45, 605.62]}, {"codigo": "2.1.12", "descricao": "INSTALAÇÃO E FIXAÇÃO DE SUPORTE ARTICULADO PARA TV OU MONITOR DE PAREDE", "unidade": "UN", "precos": [341.01, 290.39, 290.04, 326.36, 296.12]}]}, {"codigo": "2.2", "nome": "TELECOMUNICAÇÕES", "itens": [{"codigo": "2.2.1", "descricao": "FORNECIMENTO E INSTALAÇÃO DE PONTO LÓGICO, COMPOSTO POR UM MÓDULO TOMADA RJ45, UM MÓDULO CEGO, NA COR BRANCA, E UM CONECTOR FÊMEA RJ45, CABO UTP ATÉ 30 METROS, INCLUINDO IDENTIFICAÇÃO E CERTIFICAÇÃO DO PONTO, PADRÃO CAT6", "unidade": "UN", "precos": [540.63, 460.41, 459.82, 517.41, 469.51]}, {"codigo": "2.2.2", "descricao": "FORNECIMENTO E INSTALAÇÃO DE PONTO LÓGICO, COMPOSTO POR UM MÓDULO TOMADA RJ45, UM MÓDULO CEGO, NA COR BRANCA, E UM CONECTOR FÊMEA RJ45, CABO UTP DE 30 ATÉ 60 METROS, INCLUINDO IDENTIFICAÇÃO E CERTIFICAÇÃO DO PONTO, PADRÃO CAT6.", "unidade": "UN", "precos": [923.9, 786.76, 785.81, 884.22, 802.36]}, {"codigo": "2.2.3", "descricao": "FORNECIMENTO E INSTALAÇÃO DE PATCH PANEL, CARREGADO CAT. 6, 24 POSIÇÕES RJ-45, IDENTIFICAÇÃO FRONTAL E TRASEIRA DO PONTO DE REDE ATENDIDO E GUIA DE CABOS 19”", "unidade": "UN", "precos": [2168.4, 1846.57, 1844.28, 2075.27, 1883.09]}, {"codigo": "2.2.4", "descricao": "FORNECIMENTO E INSTALAÇÃO DE MINIRACK 12U, COM PORTA E AJUSTE DE PLANO", "unidade": "UN", "precos": [860.89, 733.12, 732.21, 823.93, 747.64]}, {"codigo": "2.2.5", "descricao": "FORNECIMENTO E INSTALAÇÃO DE RACK DE TELECOMUNICAÇÕES 44U, COM PORTA E AJUSTE DE PLANO", "unidade": "UN", "precos": [3721.04, 3168.77, 3164.87, 3561.23, 3231.43]}, {"codigo": "2.2.6", "descricao": "FORNECIMENTO E INSTALAÇÃO DE UM TOTEM ELÉTRICO E LÓGICO DE 3,0 METROS EXTENSÍVEL POR MAIS 0,80 METRO COMPOSTO POR UMA ESTRUTURA TUBULAR EM ALUMÍNIO EXTRUDADO, COM UMA SECÇÃO EM CADA LADO, DUAS TAMPAS STANDARD, UM VERGALHÃO EXTENSOR E FIXADOR DE 1 (UM) METRO, NA COR BRANCA E 2 (DUAS) LUVAS DE ARREMATE FABRICADAS EM TERMOPLÁSTICO DE ENGENHARIA ABS/PC-V0 COLOCADAS NA BASE INFERIOR E NA BASE SUPERIOR, NA COR BRANCA", "unidade": "UN", "precos": [2425.79, 2065.74, 2063.19, 2321.6, 2106.61]}, {"codigo": "2.2.7", "descricao": "FORNECIMENTO E INSTALAÇÃO DE PATCH CORD CAT.6 EM TAMANHOS DE 1,5 METROS, 2,5 METROS OU 3 METROS", "unidade": "UN", "precos": [80.09, 68.23, 68.13, 76.68, 69.56]}, {"codigo": "2.2.8", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LINE CORD CAT.6", "unidade": "M", "precos": [32.49, 27.67, 27.64, 31.09, 28.21]}, {"codigo": "2.2.9", "descricao": "REPARO DE PONTO LÓGICO, INCLUINDO DIAGNÓSTICO, IDENTIFICAÇÃO E CERTIFICAÇÃO DO PONTO, PADRÃO CAT6.", "unidade": "UN", "precos": [214.21, 182.43, 182.17, 205.01, 186.03]}]}, {"codigo": "2.3", "nome": "ELÉTRICA", "itens": [{"codigo": "2.3.1", "descricao": "FORNECIMENTO E INSTALAÇÃO DE UM PONTO ELÉTRICO COMPOSTO POR UM MÓDULO DE TOMADA DE ENERGIA DE 20 AMPÈRES, 2 P+T NBR 14136, 250V, OU DE UM MÓDULO INTERRUPTOR SIMPLES, 10 AMPÈRES, 250V, OU DE UM ESPELHO CEGO PARA MÓDULO SIMPLES, PARA CAIXAS DE INTERRUPTORES, TOMADAS OU MISTAS, TODOS EM CORES DIVERSAS", "unidade": "UN", "precos": [67.87, 57.82, 57.75, 64.95, 58.94]}, {"codigo": "2.3.2", "descricao": "FORNECIMENTO E INSTALAÇÃO DE UM PLUGUE 2P+T 10A OU 20A, AXIAL OU RADIAL.", "unidade": "UN", "precos": [24.23, 20.61, 20.59, 23.19, 21.05]}, {"codigo": "2.3.3", "descricao": "FORNECIMENTO E INSTALAÇÃO DE UM SOQUETE DE LÂMPADA E27", "unidade": "UN", "precos": [22.94, 19.53, 19.51, 21.95, 19.93]}, {"codigo": "2.3.4", "descricao": "FORNECIMENTO E INSTALAÇÃO DE CABO COM ISOLAÇÃO DE POLIOLEFINA, 2,5MM², 450/750V", "unidade": "M", "precos": [6.53, 5.55, 5.55, 6.24, 5.68]}, {"codigo": "2.3.5", "descricao": "FORNECIMENTO E INSTALAÇÃO DE CABO COM ISOLAÇÃO DE POLIOLEFINA, 4,0MM², 450/750V", "unidade": "M", "precos": [9.68, 8.23, 8.23, 9.29, 8.41]}, {"codigo": "2.3.6", "descricao": "FORNECIMENTO E INSTALAÇÃO DE CABO COM ISOLAÇÃO DE POLIOLEFINA, 6,0MM², 450/750V", "unidade": "M", "precos": [13.61, 11.58, 11.57, 13.02, 11.81]}, {"codigo": "2.3.7", "descricao": "FORNECIMENTO E INSTALAÇÃO DE CABO COM ISOLAÇÃO DE POLIOLEFINA, 10,0MM², 450/750V", "unidade": "M", "precos": [21.5, 18.31, 18.28, 20.59, 18.67]}, {"codigo": "2.3.8", "descricao": "FORNECIMENTO E INSTALAÇÃO DE CABO QUADRIPOLAR COM ISOLAÇÃO DE HEPR CONTENDO 4 VIAS DE 2,5MM²", "unidade": "M", "precos": [19.43, 16.56, 16.55, 18.61, 16.88]}, {"codigo": "2.3.9", "descricao": "FORNECIMENTO E INSTALAÇÃO DE CABO COM ISOLAÇÃO DE EPR, 4,0MM², 600/1000V", "unidade": "M", "precos": [11.82, 10.05, 10.05, 11.31, 10.27]}, {"codigo": "2.3.10", "descricao": "FORNECIMENTO E INSTALAÇÃO DE EXTENSÃO ELÉTRICA, DE 1,5 M DE EXTENSÃO, COM 4 TOMADAS 10A PADRÃO NBR 14136", "unidade": "UN", "precos": [70.63, 60.15, 60.06, 67.6, 61.33]}, {"codigo": "2.3.11", "descricao": "FORNECIMENTO E INSTALAÇÃO DE EXTENSÃO ELÉTRICA, DE ATÉ 6M, COM RÉGUA DE 4 TOMADAS 20A PADRÃO NBR 14136", "unidade": "UN", "precos": [70.63, 60.15, 60.06, 67.6, 61.33]}, {"codigo": "2.3.12", "descricao": "FORNECIMENTO E INSTALAÇÃO DE DISJUNTOR TERMOMAGNÉTICO, TIPO MINIDISJUNTOR, MONOPOLAR, CAPACIDADE NOMINAL DE 20A, 25A OU 32A", "unidade": "UN", "precos": [39.13, 33.36, 33.3, 37.47, 33.98]}, {"codigo": "2.3.13", "descricao": "FORNECIMENTO E INSTALAÇÃO DE DISJUNTOR TERMOMAGNÉTICO, TIPO MINIDISJUNTOR, BIPOLAR, CAPACIDADE NOMINAL DE 20A, 25A, 32A OU 40A", "unidade": "UN", "precos": [113.46, 96.63, 96.52, 108.6, 98.54]}, {"codigo": "2.3.14", "descricao": "FORNECIMENTO E INSTALAÇÃO DE DISJUNTOR TERMOMAGNÉTICO TRIPOLAR, CAPACIDADE NOMINAL DE 20A, 25A ,32A, 40A OU 50A", "unidade": "UN", "precos": [138.44, 117.91, 117.75, 132.52, 120.23]}, {"codigo": "2.3.15", "descricao": "FORNECIMENTO E INSTALAÇÃO DE DISJUNTOR TRIPOLAR, EM CAIXA MOLDADA PARA ATÉ 320A, 690V, AJUSTÁVEL", "unidade": "UN", "precos": [5933.11, 5052.53, 5046.28, 5678.31, 5152.45]}, {"codigo": "2.3.16", "descricao": "FORNECIMENTO E INSTALAÇÃO DE DISJUNTOR TRIPOLAR, EM CAIXA MOLDADA PARA ATÉ 630A, 690V, AJUSTÁVEL", "unidade": "UN", "precos": [9454.83, 8051.55, 8041.6, 9048.8, 8210.78]}, {"codigo": "2.3.17", "descricao": "FORNECIMENTO E INSTALAÇÃO DE DISJUNTOR TRIPOLAR, EM CAIXA MOLDADA PARA ATÉ 1000A, 690V, AJUSTÁVEL", "unidade": "UN", "precos": [16342.65, 13917.05, 13899.87, 15640.79, 14192.33]}, {"codigo": "2.3.18", "descricao": "FORNECIMENTO E INSTALAÇÃO DE DISJUNTOR TRIPOLAR, EM CAIXA MOLDADA PARA ATÉ 1600A, 690V, AJUSTÁVEL", "unidade": "UN", "precos": [23181.17, 19740.6, 19716.19, 22185.6, 20131.02]}, {"codigo": "2.3.19", "descricao": "FORNECIMENTO E INSTALAÇÃO DE ELETROBÓIAS", "unidade": "UN", "precos": [138.23, 117.72, 117.57, 132.29, 120.03]}, {"codigo": "2.3.20", "descricao": "FORNECIMENTO E INSTALAÇÃO DE RESISTÊNCIA PARA CHUVEIRO ELÉTRICO", "unidade": "UN", "precos": [56.71, 48.29, 48.22, 54.26, 49.24]}, {"codigo": "2.3.21", "descricao": "FORNECIMENTO E INSTALAÇÃO DE CHUVEIRO ELÉTRICO, COM REGULAGEM ELETRÔNICA DE TEMPERATURA, 5500W (VERSÃO 127V) OU 7700W (VERSÃO 220V)", "unidade": "UN", "precos": [224.23, 190.97, 190.71, 214.61, 194.73]}, {"codigo": "2.3.22", "descricao": "FORNECIMENTO E INSTALAÇÃO DE CAMPAINHA SEM FIO", "unidade": "UN", "precos": [186.89, 159.13, 158.95, 178.85, 162.28]}, {"codigo": "2.3.23", "descricao": "FORNECIMENTO E INSTALAÇÃO DE MINUTEIRA (RELÉ TEMPORIZADOR)", "unidade": "UN", "precos": [237.67, 202.39, 202.14, 227.45, 206.38]}, {"codigo": "2.3.24", "descricao": "FORNECIMENTO E INSTALAÇÃO DE FOTOCÉLULA (RELÉ FOTOELÉTRICO)", "unidade": "UN", "precos": [72.21, 61.51, 61.42, 69.13, 62.73]}, {"codigo": "2.3.25", "descricao": "FORNECIMENTO E INSTALAÇÃO DE BORNES SAK E TERMINAIS", "unidade": "UN", "precos": [10.53, 8.94, 8.93, 10.08, 9.14]}, {"codigo": "2.3.26", "descricao": "FORNECIMENTO E INSTALAÇÃO DE BOTOEIRA (COM E SEM RETENÇÃO)", "unidade": "UN", "precos": [53.61, 45.68, 45.61, 51.34, 46.57]}, {"codigo": "2.3.27", "descricao": "FORNECIMENTO E INSTALAÇÃO DE CHAVE SELETORA DE 3 POSIÇÕES", "unidade": "UN", "precos": [94.43, 80.42, 80.32, 90.38, 82.01]}, {"codigo": "2.3.28", "descricao": "FORNECIMENTO E INSTALAÇÃO DE SINALEIROS PARA PAINEL", "unidade": "UN", "precos": [45.53, 38.75, 38.72, 43.57, 39.54]}, {"codigo": "2.3.29", "descricao": "FORNECIMENTO E INSTALAÇÃO DE RELÉ DE REVEZAMENTO DE BOMBA", "unidade": "UN", "precos": [296.71, 252.68, 252.37, 283.96, 257.67]}, {"codigo": "2.3.30", "descricao": "FORNECIMENTO E INSTALAÇÃO DE CONTATOR TRIPOLAR", "unidade": "UN", "precos": [426.18, 362.94, 362.46, 407.88, 370.11]}, {"codigo": "2.3.31", "descricao": "FORNECIMENTO E INSTALAÇÃO DE CONTATOR AUXILIAR", "unidade": "UN", "precos": [220.43, 187.72, 187.47, 210.96, 191.44]}, {"codigo": "2.3.32", "descricao": "FORNECIMENTO E INSTALAÇÃO DE RELÉ TÉRMICO", "unidade": "UN", "precos": [369.27, 314.44, 314.07, 353.41, 320.69]}, {"codigo": "2.3.33", "descricao": "FORNECIMENTO E INSTALAÇÃO DE DISJUNTOR MOTOR", "unidade": "UN", "precos": [351.29, 299.16, 298.78, 336.21, 305.07]}, {"codigo": "2.3.34", "descricao": "FORNECIMENTO E INSTALAÇÃO DE RELÉ DE FALTA E SEQUÊNCIA DE FASE", "unidade": "UN", "precos": [398.12, 339.05, 338.62, 381.05, 345.77]}, {"codigo": "2.3.35", "descricao": "FORNECIMENTO E INSTALAÇÃO DE CABO HDMI ULTRA HIGH SPEED OU HDMI 2.1, COM 20 METROS", "unidade": "UN", "precos": [798.48, 679.98, 679.14, 764.19, 693.44]}]}, {"codigo": "2.4", "nome": "ILUMINAÇÃO INTERNA", "itens": [{"codigo": "2.4.1", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LÂMPADA LED BULB 9W E27, TEMPERATURA DE COR 3000K, LIMPEZA DA LUMINÁRIA, DESCARTE ADEQUADO DA LÂMPADA", "unidade": "UN", "precos": [30.07, 25.61, 25.58, 28.79, 26.13]}, {"codigo": "2.4.2", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LÂMPADA LED BULB 11W OU 13W E27, TEMPERATURA DE COR 4000K, LIMPEZA DA LUMINÁRIA, DESCARTE ADEQUADO DA LÂMPADA.", "unidade": "UN", "precos": [38.29, 32.62, 32.57, 36.67, 33.25]}, {"codigo": "2.4.3", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LÂMPADA TUBELED T5, POTÊNCIA 8W, COM TROCA DOS SOQUETES G5, REMOÇÃO DO REATOR, LIMPEZA DA LUMINÁRIA, DESCARTE ADEQUADO DO REATOR E LÂMPADAS SUBSTITUÍDAS", "unidade": "UN", "precos": [110.3, 93.94, 93.82, 105.57, 95.78]}, {"codigo": "2.4.4", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LÂMPADA TUBELED T5, POTÊNCIA 16W, COM TROCA DOS SOQUETES G5, REMOÇÃO DO REATOR, LIMPEZA DA LUMINÁRIA, DESCARTE ADEQUADO DO REATOR E LÂMPADAS SUBSTITUÍDAS", "unidade": "UN", "precos": [151.2, 128.77, 128.61, 144.7, 131.32]}, {"codigo": "2.4.5", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LÂMPADA TUBELED T8, POTÊNCIA 9W, COM TROCA DOS SOQUETES G13, REMOÇÃO DO REATOR, LIMPEZA DA LUMINÁRIA, DESCARTE ADEQUADO DO REATOR E LÂMPADAS SUBSTITUÍDAS", "unidade": "UN", "precos": [58.19, 49.57, 49.5, 55.68, 50.55]}, {"codigo": "2.4.6", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LÂMPADA TUBELED T8, POTÊNCIA 18W, COM TROCA DOS SOQUETES G13, REMOÇÃO DO REATOR, LIMPEZA DA LUMINÁRIA, DESCARTE ADEQUADO DO REATOR E LÂMPADAS SUBSTITUÍDAS", "unidade": "UN", "precos": [62.18, 52.96, 52.88, 59.5, 54]}, {"codigo": "2.4.7", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA DE EMBUTIR, PARA 2 LÂMPADAS TUBULARES T8 DE 60CM, COM SOQUETES G13, COM ADEQUAÇÃO DE FORRO, INCLUINDO NOVA PLACA E PERFIL", "unidade": "UN", "precos": [144.96, 123.43, 123.29, 138.73, 125.87]}, {"codigo": "2.4.8", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA TIPO ARANDELA, COM SOQUETE E27", "unidade": "UN", "precos": [373.88, 318.41, 318, 357.83, 324.69]}, {"codigo": "2.4.9", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA QUADRADA DE EMBUTIR, LED 36W", "unidade": "UN", "precos": [454.07, 386.68, 386.2, 434.58, 394.33]}, {"codigo": "2.4.10", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA RETANGULAR DE SOBREPOR, LED 36W", "unidade": "UN", "precos": [155.44, 132.38, 132.21, 148.77, 134.98]}, {"codigo": "2.4.11", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA DE SOBREPOR LINEAR, LED 15W.", "unidade": "UN", "precos": [494.67, 421.28, 420.74, 473.45, 429.58]}, {"codigo": "2.4.12", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA DE SOBREPOR LINEAR, LED 36W", "unidade": "UN", "precos": [494.81, 421.37, 420.84, 473.56, 429.68]}, {"codigo": "2.4.13", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA CIRCULAR DE EMBUTIR, LED 14W", "unidade": "UN", "precos": [375.61, 319.86, 319.47, 359.49, 326.18]}, {"codigo": "2.4.14", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA CIRCULAR DE EMBUTIR, LED 25W", "unidade": "UN", "precos": [537.13, 457.43, 456.86, 514.07, 466.45]}]}, {"codigo": "2.5", "nome": "ILUMINAÇÃO EXTERNA", "itens": [{"codigo": "2.5.1", "descricao": "FORNECIMENTO E INSTALAÇÃO DE POSTE DE ILUMINAÇÃO, FLANGEADO, INCLUINDO BASE E CHUMBADORES", "unidade": "UN", "precos": [1197.4, 1019.68, 1018.4, 1145.96, 1039.85]}, {"codigo": "2.5.2", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LÂMPADA LED, TIPO LED BULB, 23W, SOQUETE E27, 6500K, FLUXO LUMINOSO MÍNIMO DE 3000LM, COM ADAPTADOR E27-E40, COM LIMPEZA DA LUMINÁRIA E DESCARTE ADEQUADO DA LÂMPADA E REATOR ANTIGOS", "unidade": "UN", "precos": [224.75, 191.4, 191.15, 215.11, 195.16]}, {"codigo": "2.5.3", "descricao": "INSTALAÇÃO E FORNECIMENTO DE GLOBO PARA LUMINÁRIA EXTERNA", "unidade": "UN", "precos": [479.6, 408.42, 407.91, 459.02, 416.49]}, {"codigo": "2.5.4", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA TIPO PROJETOR EXTERNO, LED 30W, COM REMOÇÃO E DESCARTE ADEQUADO DA LUMINÁRIA, LÂMPADA E REATOR EXISTENTE, EM CASO DE SUBSTITUIÇÃO", "unidade": "UN", "precos": [241.18, 205.39, 205.13, 230.82, 209.44]}, {"codigo": "2.5.5", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA TIPO PROJETOR EXTERNO, LED 50W COM REMOÇÃO E DESCARTE ADEQUADO DA LUMINÁRIA, LÂMPADA E REATOR EXISTENTE, EM CASO DE SUBSTITUIÇÃO", "unidade": "UN", "precos": [318.02, 270.81, 270.48, 304.37, 276.17]}, {"codigo": "2.5.6", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA PARA ILUMINAÇÃO PÚBLICA EXTERNA, LED 60W", "unidade": "UN", "precos": [738.86, 629.21, 628.43, 707.14, 641.64]}, {"codigo": "2.5.7", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA PARA ILUMINAÇÃO PÚBLICA EXTERNA (OEM), LED 50W", "unidade": "UN", "precos": [500.02, 425.82, 425.29, 478.55, 434.22]}, {"codigo": "2.5.8", "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA PARA ILUMINAÇÃO PÚBLICA EXTERNA (OEM), LED 150W", "unidade": "UN", "precos": [716.37, 610.05, 609.28, 685.62, 622.1]}, {"codigo": "2.5.9", "descricao": "FORNECIMENTO E INSTALAÇÃO DE SUPORTE PARA TOPO DE POSTE, PARA FIXAÇÃO DE UMA OU DUAS LUMINÁRIAS", "unidade": "UN", "precos": [251.54, 214.21, 213.94, 240.76, 218.48]}]}, {"codigo": "2.6", "nome": "NO-BREAKS", "itens": [{"codigo": "2.6.1", "descricao": "INSTALAÇÃO OU SUBSTITUIÇÃO DE NO-BREAK DE 1 A 3KVA, FORNECIDO PELO CONTRATANTE - INCLUSIVE EM HORÁRIO EXTRAORDINÁRIO", "unidade": "UN", "precos": [271.71, 231.39, 231.1, 260.04, 235.96]}, {"codigo": "2.6.2", "descricao": "FORNECIMENTO E INSTALAÇÃO DE BATERIA SELADA 12V, 12AH", "unidade": "UN", "precos": [400.48, 341.07, 340.64, 383.3, 347.77]}, {"codigo": "2.6.3", "descricao": "FORNECIMENTO E INSTALAÇÃO DE BATERIA SELADA 12V, 18AH.", "unidade": "UN", "precos": [504.5, 429.62, 429.11, 482.86, 438.11]}]}]}, {"codigo": "3", "nome": "LOCAÇÃO DE EQUIPAMENTOS", "subgrupos": [{"codigo": "3", "nome": "LOCAÇÃO DE EQUIPAMENTOS", "itens": [{"codigo": "3.1", "descricao": "SERVIÇO DE LOCAÇÃO DE PLATAFORMA ELEVATÓRIA ARTICULADA - ÁREA INTERNA OU EXTERNA, ATÉ 10M DE ALTURA - 2 DIAS DE USO", "unidade": "CJ", "precos": [15661.68, 13337.17, 13320.67, 14989.05, 13600.95]}], "virtual": true}]}]
+};
+
+window.__PAGINA_ORCAMENTO_HTML__ = null;
+window.__PAGINA_LOGIN_HTML__ = "<div class=\"container-configuracao d-flex justify-content-center pt-5\" style=\"min-height: 80vh;\">\n  <div class=\"login-wrapper w-100\" style=\"max-width: 350px;\">\n\n    <div class=\"mb-5 border-start border-4 border-secondary ps-3\">\n      <h2 class=\"h5 fw-bold mb-0 text-dark text-uppercase text\" style=\"letter-spacing: 1px;\">AUTENTICAÇÃO</h2>\n      <small class=\"text-muted text-uppercase\" style=\"font-size: 0.7rem;\">Configuração Interna do Sistema</small>\n    </div>\n\n    <form id=\"form-login\">\n      <div class=\"mb-4\">\n        <label for=\"usuario\" class=\"form-label small text-muted text-uppercase fw-semibold\">Identificação</label>\n        <input type=\"text\" id=\"usuario\" class=\"form-control form-control-custom\" placeholder=\"Usuário de rede\" required>\n      </div>\n\n      <div class=\"mb-4\">\n        <label for=\"senha\" class=\"form-label small text-muted text-uppercase fw-semibold\">Chave de Acesso</label>\n        <div class=\"position-relative\">\n          <input type=\"password\" id=\"senha\" class=\"form-control form-control-custom\" placeholder=\"********\" required>\n          <button type=\"button\" class=\"btn-toggle-pass\" id=\"toggle-senha\">\n            <svg width=\"16\" height=\"16\" fill=\"currentColor\" viewBox=\"0 0 16 16\">\n              <path d=\"M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z\" />\n              <path d=\"M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z\" />\n            </svg>\n          </button>\n        </div>\n      </div>\n\n      <div id=\"login-erro\" class=\"d-none\">\n        <p class=\"text-danger small mb-3\">\n          Credenciais inválidas. Tente novamente.\n        </p>\n      </div>\n\n      <p class=\"text-muted small mb-3\" style=\"font-size: 11px;\">\n        Prévia: qualquer usuário/senha entra na tela de administração (sem back-end conectado).\n      </p>\n\n      <button type=\"button\" onclick=\"window.efetuarLoginPreview()\" class=\"btn btn-secondary w-100 fw-bold py-2 text-uppercase d-flex align-items-center justify-content-center gap-2\" style=\"font-size: 0.8rem; border-radius: 4px;\">\n        <span>Entrar no Sistema</span>\n        <svg width=\"14\" height=\"14\" fill=\"currentColor\" viewBox=\"0 0 16 16\">\n          <path fill-rule=\"evenodd\" d=\"M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z\" />\n          <path fill-rule=\"evenodd\" d=\"M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z\" />\n        </svg>\n      </button>\n    </form>\n  </div>\n</div>";
+window.__PAGINA_ADMIN_HTML__ = "<section class=\"paragrafo-configuracao\">\n  <div class=\"container-titulo\">\n    <div class=\"col-md-12\">\n      <div class=\"row\">\n        <div class=\"col-md-12\">\n          <h3 class=\"titulo-configuracao\">Atualização de Valores por Item de Orçamento</h3>\n        </div>\n        <div class=\"col-md-12\">\n          <p class=\"p-configuracao\">Módulo destinado à atualização dos valores unitários de cada item de infraestrutura, por empresa/lote contratado.</p>\n          <p class=\"p-configuracao\" style=\"font-size: 12px;\">Exemplo de formato: 125.00 (use apenas números e ponto como separador decimal). Campos marcados como N/A não se aplicam ao lote correspondente.</p>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n\n<div class=\"container-cds mb-3\">\n  <div id=\"admin-tabela-precos\"></div>\n\n  <div class=\"row justify-content-end mt-3 g-2\">\n    <div class=\"col-md-2 col-4\">\n      <button type=\"button\" onclick=\"window.restaurarValoresAdmin()\"\n              class=\"btn btn-secondary w-100 fw-bold py-2 text-uppercase d-flex align-items-center justify-content-center gap-2\"\n              style=\"font-size: 0.8rem; border-radius: 4px;\">\n        <span>Desfazer</span>\n      </button>\n    </div>\n    <div class=\"col-md-2 col-4\">\n      <button type=\"button\" onclick=\"window.limparFormularioAdmin()\"\n              class=\"btn btn-secondary w-100 fw-bold py-2 text-uppercase d-flex align-items-center justify-content-center gap-2\"\n              style=\"font-size: 0.8rem; border-radius: 4px;\">\n        <span>Limpar</span>\n      </button>\n    </div>\n    <div class=\"col-md-2 col-4\">\n      <button type=\"button\" onclick=\"window.confirmarAtualizacaoPreview()\"\n              class=\"btn btn-secondary w-100 fw-bold py-2 text-uppercase d-flex align-items-center justify-content-center gap-2\"\n              style=\"font-size: 0.8rem; border-radius: 4px;\">\n        <span>Atualizar</span>\n      </button>\n    </div>\n  </div>\n</div>";
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+
+//@autor Marcelo Diehl - DITIC-DSUP
+// Calculadora de Orçamento de Engenharia (Diagnósticos, Materiais com Instalação, etc.)
+
+// 1. ESTADO E CONFIGURAÇÕES GLOBAIS
+const OrcamentoState = {
+  comarcas: [],
+  lotes: [],
+  grupos: [],
+  loteAtual: null,
+};
+
+// Cor de destaque por grupo orçamentário (reaproveita a paleta de tiposServico do script.js)
+const CORES_GRUPO = ["#5F8F95", "#5B7FA6", "#A39A8A", "#8C7AAE", "#4C7F6F", "#6F7C8F"];
+
+function formatarMoeda(valor) {
+  return (valor || 0).toLocaleString("pt-br", { style: "currency", currency: "BRL" });
+}
+
+// 2. CARREGAMENTO DE DADOS
+// Nesta fase (somente front-end) os dados vêm de arquivos estáticos em /dados.
+// Quando o back-end (Spring/JPA) estiver pronto, trocar por /api/comarcas,
+// /api/lotes e /api/itens-orcamento, mantendo o mesmo formato de resposta.
+async function carregarDadosOrcamento() {
+  // MODO PRÉVIA: dados embutidos diretamente no HTML (window.__DADOS_PREVIA__)
+  // Na integração real com o projeto, esta função usa fetch() em /dados/*.json (ver orcamento.js)
+  const { comarcas, lotes, grupos } = window.__DADOS_PREVIA__;
+
+  OrcamentoState.comarcas = comarcas.sort((a, b) =>
+    a.comarca === "Porto Alegre" ? -1 : a.comarca.localeCompare(b.comarca, "pt-br")
+  );
+  OrcamentoState.lotes = lotes;
+  OrcamentoState.grupos = grupos;
+
+  preencherSelectComarcas();
+  renderizarGrupos();
+}
+
+function preencherSelectComarcas() {
+  const sel = document.getElementById("orc-comarca");
+  if (!sel) return;
+  sel.innerHTML = '<option selected disabled>Selecione a Comarca</option>';
+  OrcamentoState.comarcas.forEach(c => {
+    const opt = document.createElement("option");
+    opt.value = c.comarca;
+    opt.textContent = c.comarca;
+    opt.dataset.lote = c.lote;
+    opt.dataset.regiao = c.regiao;
+    sel.appendChild(opt);
+  });
+}
+
+// 3. RENDERIZAÇÃO DOS GRUPOS/ITENS
+function renderizarGrupos() {
+  const container = document.getElementById("orc-lista-grupos");
+  if (!container) return;
+
+  container.innerHTML = OrcamentoState.grupos.map((grupo, idx) => {
+    const cor = CORES_GRUPO[idx % CORES_GRUPO.length];
+    const totalItensGrupo = grupo.subgrupos.reduce((acc, sg) => acc + sg.itens.length, 0);
+
+    const subgruposHtml = grupo.subgrupos.map(sg => {
+      const cabecalho = sg.virtual ? "" : `<div class="subgrupo-titulo">${sg.nome}</div>`;
+      const itensHtml = sg.itens.map(item => criarLinhaItem(item)).join("");
+      return `<div class="subgrupo-orcamento">
+        ${cabecalho}
+        <div class="linha-cabecalho-item">
+          <span>Item</span><span>Descrição</span><span class="text-center">Un.</span>
+          <span class="text-center">Qtd.</span><span class="text-end">Valor Unitário</span><span class="text-end">Valor Total</span>
+        </div>
+        ${itensHtml}
+      </div>`;
+    }).join("");
+
+    return `<div class="accordion-item grupo-orcamento" style="--grupo-cor: ${cor}">
+      <h2 class="accordion-header">
+        <button class="accordion-button ${idx === 0 ? "" : "collapsed"}" type="button"
+                data-bs-toggle="collapse" data-bs-target="#orc-grupo-${grupo.codigo}">
+          <span class="titulo-grupo">${grupo.codigo} - ${grupo.nome}
+            <span class="badge-qtd-grupo">${totalItensGrupo} itens</span>
+          </span>
+          <span class="subtotal-grupo" id="subtotal-grupo-${grupo.codigo}">Sub-total: R$ 0,00</span>
+          <span class="toggle-simbolo"></span>
+        </button>
+      </h2>
+      <div id="orc-grupo-${grupo.codigo}" class="accordion-collapse collapse ${idx === 0 ? "show" : ""}">
+        <div class="accordion-body p-0">${subgruposHtml}</div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function criarLinhaItem(item) {
+  const unidade = item.unidade || "-";
+  const ehMetro = unidade.toUpperCase() === "M";
+  const ehUnidade = unidade.toUpperCase() === "UN";
+  const step = ehMetro ? "0.01" : "1";
+  const max = ehMetro ? "9999.99" : "9999";
+  const classeSpin = ehUnidade ? "" : " sem-spin";
+
+  return `<div class="linha-item" data-codigo="${item.codigo}"
+               data-descricao="${item.descricao.toLowerCase()}">
+    <span class="item-codigo">${item.codigo}</span>
+    <span class="item-descricao">${item.descricao}</span>
+    <span class="item-unidade" data-unidade-padrao="${unidade}">${unidade}</span>
+    <input type="number" min="0" max="${max}" step="${step}" value="0"
+           class="form-control form-control-sm item-qtd${classeSpin}"
+           data-precos='${JSON.stringify(item.precos)}'>
+    <span class="item-valor-unit">-</span>
+    <span class="item-valor-total">R$ 0,00</span>
+  </div>`;
+}
+
+// 4. CÁLCULO DE VALORES
+function obterPrecoValido(precos, lote) {
+  const bruto = precos[lote - 1];
+  const valor = parseFloat(bruto);
+  return isNaN(valor) ? null : valor;
+}
+
+function recalcularTudo() {
+  if (!OrcamentoState.loteAtual) return;
+  const lote = OrcamentoState.loteAtual;
+  let totalGeral = 0;
+
+  document.querySelectorAll(".grupo-orcamento").forEach(grupoEl => {
+    let subtotalGrupo = 0;
+
+    grupoEl.querySelectorAll(".linha-item").forEach(linha => {
+      const input = linha.querySelector(".item-qtd");
+      const precos = JSON.parse(input.dataset.precos);
+      const precoUnit = obterPrecoValido(precos, lote);
+      const qtd = parseFloat(input.value) || 0;
+
+      const spanUnit = linha.querySelector(".item-valor-unit");
+      const spanTotal = linha.querySelector(".item-valor-total");
+      const spanUnidade = linha.querySelector(".item-unidade");
+
+      if (precoUnit === null) {
+        linha.classList.add("indisponivel");
+        input.disabled = true;
+        spanUnit.textContent = "N/D";
+        spanTotal.textContent = "-";
+        spanUnidade.textContent = "N/A";
+        return;
+      }
+
+      linha.classList.remove("indisponivel");
+      input.disabled = false;
+      spanUnidade.textContent = spanUnidade.dataset.unidadePadrao;
+      const total = precoUnit * qtd;
+      spanUnit.textContent = formatarMoeda(precoUnit);
+      spanTotal.textContent = formatarMoeda(total);
+      linha.classList.toggle("tem-valor", qtd > 0);
+
+      subtotalGrupo += total;
+      totalGeral += total;
+    });
+
+    const codigoGrupo = grupoEl.querySelector(".accordion-collapse").id.replace("orc-grupo-", "");
+    const spanSubtotal = document.getElementById(`subtotal-grupo-${codigoGrupo}`);
+    if (spanSubtotal) spanSubtotal.textContent = `Sub-total: ${formatarMoeda(subtotalGrupo)}`;
+  });
+
+  const out = document.getElementById("orc-valor-total");
+  if (out) out.value = formatarMoeda(totalGeral);
+}
+
+// 5. SELEÇÃO DE COMARCA -> REGIÃO / LOTE / EMPRESA
+function configurarSelecaoComarca() {
+  const sel = document.getElementById("orc-comarca");
+  if (!sel) return;
+
+  sel.addEventListener("change", () => {
+    const opt = sel.options[sel.selectedIndex];
+    const lote = parseInt(opt.dataset.lote, 10);
+    const regiao = opt.dataset.regiao;
+    const infoLote = OrcamentoState.lotes.find(l => l.lote === lote);
+
+    document.getElementById("orc-regiao").value = regiao || "";
+    document.getElementById("orc-lote").value = infoLote ? `Lote ${infoLote.lote}` : "";
+    document.getElementById("orc-empresa").value = infoLote ? infoLote.empresa : "";
+
+    OrcamentoState.loteAtual = lote;
+    recalcularTudo();
+  });
+}
+
+// 6. LIMPEZA (acionada pelo botão no header sticky / navbar)
+window.limparOrcamento = function () {
+  const sel = document.getElementById("orc-comarca");
+  if (!sel) return; // botão presente no header mas página de orçamento não está carregada
+
+  sel.selectedIndex = 0; // volta para "Selecione a Comarca"
+  document.getElementById("orc-regiao").value = "";
+  document.getElementById("orc-lote").value = "";
+  document.getElementById("orc-empresa").value = "";
+  document.getElementById("orc-valor-total").value = "R$ 0,00";
+  OrcamentoState.loteAtual = null;
+
+  document.querySelectorAll(".linha-item").forEach(linha => {
+    linha.classList.remove("indisponivel", "tem-valor");
+    const input = linha.querySelector(".item-qtd");
+    input.value = 0;
+    input.disabled = false;
+    const spanUnidade = linha.querySelector(".item-unidade");
+    spanUnidade.textContent = spanUnidade.dataset.unidadePadrao;
+    linha.querySelector(".item-valor-unit").textContent = "-";
+    linha.querySelector(".item-valor-total").textContent = "R$ 0,00";
+  });
+
+  // limpa também o modal de geração de relatório
+  const ticket = document.getElementById("rel-ticket");
+  const tecnico = document.getElementById("rel-tecnico");
+  const descricao = document.getElementById("rel-descricao");
+  const contador = document.getElementById("rel-descricao-contador");
+  if (ticket) ticket.value = "";
+  if (tecnico) tecnico.value = "";
+  if (descricao) descricao.value = "";
+  if (contador) contador.textContent = "0/1000";
+  document.querySelectorAll(".subtotal-grupo").forEach(s => (s.textContent = "Sub-total: R$ 0,00"));
+};
+
+// 7. EVENTOS DE INPUT (DELEGAÇÃO)
+function configurarEventosQuantidade() {
+  document.getElementById("orc-lista-grupos")?.addEventListener("input", e => {
+    if (e.target.classList.contains("item-qtd")) {
+      const max = parseFloat(e.target.max);
+      if (e.target.value < 0) e.target.value = 0;
+      if (!isNaN(max) && parseFloat(e.target.value) > max) e.target.value = max;
+      recalcularTudo();
+    }
+  });
+}
+
+// 9. TELA DE ADMINISTRAÇÃO DE PREÇOS (pós-login) — Item x Empresa/Lote
+function renderizarTabelaAdmin() {
+  const container = document.getElementById("admin-tabela-precos");
+  if (!container) return;
+
+  const lotes = OrcamentoState.lotes.length ? OrcamentoState.lotes : window.__DADOS_PREVIA__?.lotes || [];
+  const grupos = OrcamentoState.grupos.length ? OrcamentoState.grupos : window.__DADOS_PREVIA__?.grupos || [];
+
+  const colunasEmpresas = lotes.map(l =>
+    `<th>${l.empresa}<small>Lote ${l.lote}</small></th>`
+  ).join("");
+
+  const linhas = grupos.map(grupo => {
+    const linhaGrupo = `<tr class="linha-grupo-admin"><td colspan="${3 + lotes.length}">${grupo.codigo} - ${grupo.nome}</td></tr>`;
+
+    const linhasSubgrupos = grupo.subgrupos.map(sg => {
+      const linhaSub = sg.virtual ? "" :
+        `<tr class="linha-subgrupo-admin"><td colspan="${3 + lotes.length}">${sg.nome}</td></tr>`;
+
+      const linhasItens = sg.itens.map(item => {
+        const colunasPrecos = lotes.map((l, i) => {
+          const bruto = item.precos[i];
+          const valor = parseFloat(bruto);
+          const disponivel = !isNaN(valor);
+          return `<td><input type="text" inputmode="decimal" pattern="^\\d+(\\.\\d{1,2})?$"
+                        class="form-control form-control-sm preco-admin" ${disponivel ? "" : "disabled"}
+                        placeholder="${disponivel ? "0.00" : "N/A"}"
+                        value="${disponivel ? valor.toFixed(2) : ""}"
+                        data-codigo="${item.codigo}" data-lote="${l.lote}"></td>`;
+        }).join("");
+
+        return `<tr>
+          <td class="col-item-codigo">${item.codigo}</td>
+          <td class="col-item-descricao">${item.descricao}</td>
+          <td class="col-item-unidade">${item.unidade || "-"}</td>
+          ${colunasPrecos}
+        </tr>`;
+      }).join("");
+
+      return linhaSub + linhasItens;
+    }).join("");
+
+    return linhaGrupo + linhasSubgrupos;
+  }).join("");
+
+  container.innerHTML = `<div class="tabela-precos-admin-wrap">
+    <table class="tabela-precos-admin">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Descrição</th>
+          <th>Un.</th>
+          ${colunasEmpresas}
+        </tr>
+      </thead>
+      <tbody>${linhas}</tbody>
+    </table>
+  </div>`;
+}
+
+window.restaurarValoresAdmin = renderizarTabelaAdmin;
+
+window.limparFormularioAdmin = function () {
+  document.querySelectorAll(".preco-admin").forEach(i => {
+    if (!i.disabled) i.value = "";
+  });
+};
+
+window.addEventListener("adminPrecosCarregado", renderizarTabelaAdmin);
+
+// 8. INICIALIZAÇÃO
+window.addEventListener("orcamentoCarregado", () => {
+  carregarDadosOrcamento().then(() => {
+    configurarSelecaoComarca();
+    configurarEventosQuantidade();
+    configurarModalRelatorio();
+  });
+});
+
+// 8.1 RELATÓRIO EM PDF (gerado pelo modal aberto no ícone de impressão do header)
+function configurarModalRelatorio() {
+  const descricao = document.getElementById("rel-descricao");
+  const contador = document.getElementById("rel-descricao-contador");
+  if (descricao && contador) {
+    descricao.addEventListener("input", () => {
+      contador.textContent = `${descricao.value.length}/1000`;
+    });
+  }
+}
+
+function coletarItensSelecionadosParaRelatorio() {
+  const grupos = [];
+  document.querySelectorAll(".grupo-orcamento").forEach(grupoEl => {
+    const tituloGrupo = grupoEl.querySelector(".titulo-grupo");
+    const nomeGrupo = tituloGrupo ? tituloGrupo.textContent.replace(/\s+/g, " ").trim() : "";
+    const itens = [];
+    grupoEl.querySelectorAll(".linha-item.tem-valor").forEach(linha => {
+      itens.push({
+        codigo: linha.querySelector(".item-codigo").textContent.trim(),
+        descricao: linha.querySelector(".item-descricao").textContent.trim(),
+        unidade: linha.querySelector(".item-unidade").textContent.trim(),
+        quantidade: linha.querySelector(".item-qtd").value,
+        valorUnit: linha.querySelector(".item-valor-unit").textContent.trim(),
+        valorTotal: linha.querySelector(".item-valor-total").textContent.trim()
+      });
+    });
+    if (itens.length) grupos.push({ grupo: nomeGrupo, itens });
+  });
+  return grupos;
+}
+
+window.gerarRelatorioPDF = function () {
+  const gruposComItens = coletarItensSelecionadosParaRelatorio();
+  if (gruposComItens.length === 0) {
+    alert("Nenhum item com quantidade preenchida (maior que zero) para incluir no relatório.");
+    return;
+  }
+
+  const ticket = document.getElementById("rel-ticket").value.trim();
+  const tecnico = document.getElementById("rel-tecnico").value.trim();
+  const descricao = document.getElementById("rel-descricao").value.trim();
+
+  if (!window.jspdf) {
+    alert("Não foi possível carregar o gerador de PDF. Tente novamente em instantes.");
+    return;
+  }
+
+  const comarcaSel = document.getElementById("orc-comarca");
+  const comarca = comarcaSel.selectedOptions[0] ? comarcaSel.selectedOptions[0].textContent : "-";
+  const regiao = document.getElementById("orc-regiao").value || "-";
+  const lote = document.getElementById("orc-lote").value || "-";
+  const empresa = document.getElementById("orc-empresa").value || "-";
+  const valorOrcamento = document.getElementById("orc-valor-total").value || "-";
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: "pt", format: "a4" });
+  const margem = 40;
+  const largura = doc.internal.pageSize.getWidth();
+  const RODAPE_INSTITUCIONAL = "Tribunal de Justiça - DIPRED/DMAN";
+  let y = 34;
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  doc.setTextColor(110);
+  doc.text(RODAPE_INSTITUCIONAL.toUpperCase(), margem, y);
+  y += 20;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(16);
+  doc.setTextColor(20);
+  doc.text("Relatório de Orçamento de Engenharia", margem, y);
+  y += 14;
+  doc.setDrawColor(210);
+  doc.line(margem, y, largura - margem, y);
+  y += 22;
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.text(`Ticket: ${ticket || "-"}`, margem, y);
+  doc.text(`Técnico Responsável: ${tecnico || "-"}`, margem + 220, y);
+  y += 18;
+
+  doc.text(`Comarca: ${comarca}`, margem, y);
+  doc.text(`Região: ${regiao}`, margem + 220, y);
+  doc.text(`Lote: ${lote}`, margem + 320, y);
+  y += 16;
+
+  doc.text(`Empresa: ${empresa}`, margem, y);
+  doc.setFont("helvetica", "bold");
+  doc.text(`Valor de Orçamento: ${valorOrcamento}`, margem + 220, y);
+  doc.setFont("helvetica", "normal");
+  y += 18;
+
+  if (descricao) {
+    const linhas = doc.splitTextToSize(`Descrição: ${descricao}`, largura - margem * 2);
+    doc.text(linhas, margem, y);
+    y += linhas.length * 12 + 6;
+  }
+
+  y += 10;
+
+  const corpoTabela = [];
+  gruposComItens.forEach(g => {
+    corpoTabela.push([{
+      content: g.grupo,
+      colSpan: 6,
+      styles: { fillColor: [230, 232, 235], textColor: [71, 79, 92], fontStyle: "bold", halign: "left" }
+    }]);
+    g.itens.forEach(i => {
+      corpoTabela.push([i.codigo, i.descricao, i.unidade, i.quantidade, i.valorUnit, i.valorTotal]);
+    });
+  });
+
+  doc.autoTable({
+    startY: y,
+    margin: { left: margem, right: margem, bottom: 40 },
+    head: [["Item", "Descrição", "Un.", "Qtd.", "Valor Unitário", "Valor Total"]],
+    body: corpoTabela,
+    styles: { fontSize: 8, cellPadding: 4, valign: "middle" },
+    headStyles: { fillColor: [71, 79, 92], textColor: 255, fontStyle: "bold" },
+    columnStyles: {
+      0: { cellWidth: 45 },
+      1: { cellWidth: "auto" },
+      2: { cellWidth: 30, halign: "center" },
+      3: { cellWidth: 35, halign: "center" },
+      4: { cellWidth: 70, halign: "right" },
+      5: { cellWidth: 70, halign: "right" }
+    },
+    didDrawPage: () => {
+      const dataStr = new Date().toLocaleDateString("pt-br");
+      const alturaPagina = doc.internal.pageSize.getHeight();
+      doc.setFontSize(8);
+      doc.setTextColor(130);
+      doc.text(RODAPE_INSTITUCIONAL, margem, alturaPagina - 20);
+      doc.text(dataStr, largura - margem, alturaPagina - 20, { align: "right" });
+    }
+  });
+
+  const nomeArquivo = ticket ? `relatorio-orcamento-ticket-${ticket}.pdf` : "relatorio-orcamento.pdf";
+  doc.save(nomeArquivo);
+
+  const modalEl = document.getElementById("modalRelatorio");
+  const modal = bootstrap.Modal.getInstance(modalEl);
+  if (modal) modal.hide();
+};
+
+
+// 10. EASTER EGG (oculto - não é um recurso documentado do sistema)
+//@autor Marcelo Diehl - DITIC-DSUP
+// EASTER EGG: 3 cliques no nome do autor (créditos) abrem um mini "Asteroids"
+
+(function () {
+  let cliques = [];
+
+  window.registrarCliqueEasterEgg = function () {
+    const agora = Date.now();
+    cliques.push(agora);
+    cliques = cliques.filter(t => agora - t < 1500);
+    if (cliques.length >= 3) {
+      cliques = [];
+      window.abrirEasterEggAsteroids();
+    }
+  };
+
+  window.abrirEasterEggAsteroids = function () {
+    if (document.getElementById("easter-egg-overlay")) return;
+
+    const overlay = document.createElement("div");
+    overlay.id = "easter-egg-overlay";
+    overlay.innerHTML = `
+      <div class="easter-egg-caixa">
+        <div class="easter-egg-topo">
+          <span>☄️ Asteroides do DIPRED-DMAN</span>
+          <button type="button" id="easter-egg-fechar" aria-label="Fechar">&times;</button>
+        </div>
+        <div class="easter-egg-placar">
+          <span>Pontos: <b id="easter-egg-pontos">0</b></span>
+          <span id="easter-egg-vidas">Vidas: ❤️❤️❤️</span>
+        </div>
+        <canvas id="easter-egg-canvas" width="400" height="320"></canvas>
+        <p class="easter-egg-instrucoes">← → gira · ↑ propulsiona · espaço atira · esc sai</p>
+        <div id="easter-egg-fim" class="easter-egg-fim d-none">
+          <p id="easter-egg-fim-texto"></p>
+          <button type="button" id="easter-egg-reiniciar" class="btn btn-secondary btn-sm">Jogar de novo</button>
+        </div>
+      </div>`;
+    document.body.appendChild(overlay);
+
+    document.getElementById("easter-egg-fechar").onclick = fecharJogo;
+    document.getElementById("easter-egg-reiniciar").onclick = () => iniciarJogo();
+
+    const canvas = document.getElementById("easter-egg-canvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+
+    const TURN = 0.06, THRUST = 0.12, ATRITO = 0.988, VEL_TIRO = 5.5, COOLDOWN_TIRO = 260;
+
+    let nave, tiros, asteroides, pontos, vidas, nivel, teclas, rodando, animId, ultimoTiro, invulneravelAte;
+
+    function novaNave() {
+      return { x: W / 2, y: H / 2, ang: -Math.PI / 2, vx: 0, vy: 0, r: 10 };
+    }
+
+    function criarAsteroide(x, y, raio) {
+      const velocidade = 0.6 + Math.random() * 0.8;
+      const dir = Math.random() * Math.PI * 2;
+      const pontosForma = [];
+      const nVert = 8 + Math.floor(Math.random() * 4);
+      for (let i = 0; i < nVert; i++) {
+        pontosForma.push(0.75 + Math.random() * 0.5);
+      }
+      return {
+        x, y, r: raio,
+        vx: Math.cos(dir) * velocidade,
+        vy: Math.sin(dir) * velocidade,
+        forma: pontosForma,
+        rot: Math.random() * Math.PI * 2,
+        velRot: (Math.random() - 0.5) * 0.02
+      };
+    }
+
+    function novaOnda() {
+      const qtd = 3 + nivel;
+      asteroides = [];
+      for (let i = 0; i < qtd; i++) {
+        let x, y;
+        do {
+          x = Math.random() * W;
+          y = Math.random() * H;
+        } while (Math.hypot(x - nave.x, y - nave.y) < 80);
+        asteroides.push(criarAsteroide(x, y, 30));
+      }
+    }
+
+    function iniciarJogo() {
+      pontos = 0;
+      vidas = 3;
+      nivel = 1;
+      teclas = {};
+      rodando = true;
+      ultimoTiro = 0;
+      invulneravelAte = Date.now() + 1500;
+      nave = novaNave();
+      tiros = [];
+      atualizarPlacar();
+      document.getElementById("easter-egg-fim").classList.add("d-none");
+      novaOnda();
+      if (animId) cancelAnimationFrame(animId);
+      loop();
+    }
+
+    function atualizarPlacar() {
+      document.getElementById("easter-egg-pontos").textContent = pontos;
+      document.getElementById("easter-egg-vidas").textContent = "Vidas: " + "❤️".repeat(Math.max(vidas, 0));
+    }
+
+    function envolver(o) {
+      if (o.x < -o.r) o.x = W + o.r;
+      if (o.x > W + o.r) o.x = -o.r;
+      if (o.y < -o.r) o.y = H + o.r;
+      if (o.y > H + o.r) o.y = -o.r;
+    }
+
+    function desenharNave() {
+      const piscando = Date.now() < invulneravelAte && Math.floor(Date.now() / 100) % 2 === 0;
+      if (piscando) return;
+      ctx.save();
+      ctx.translate(nave.x, nave.y);
+      ctx.rotate(nave.ang);
+      ctx.strokeStyle = "#e8e8e8";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(12, 0);
+      ctx.lineTo(-9, 7);
+      ctx.lineTo(-5, 0);
+      ctx.lineTo(-9, -7);
+      ctx.closePath();
+      ctx.stroke();
+      if (teclas["ArrowUp"] || teclas["w"]) {
+        ctx.strokeStyle = "#A35B5B";
+        ctx.beginPath();
+        ctx.moveTo(-5, 3);
+        ctx.lineTo(-14, 0);
+        ctx.lineTo(-5, -3);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function desenharAsteroide(a) {
+      ctx.save();
+      ctx.translate(a.x, a.y);
+      ctx.rotate(a.rot);
+      ctx.strokeStyle = "#5F8F95";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      const n = a.forma.length;
+      for (let i = 0; i < n; i++) {
+        const ang = (i / n) * Math.PI * 2;
+        const raio = a.r * a.forma[i];
+        const px = Math.cos(ang) * raio, py = Math.sin(ang) * raio;
+        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function loop() {
+      if (!rodando) return;
+      ctx.clearRect(0, 0, W, H);
+
+      if (teclas["ArrowLeft"] || teclas["a"]) nave.ang -= TURN;
+      if (teclas["ArrowRight"] || teclas["d"]) nave.ang += TURN;
+      if (teclas["ArrowUp"] || teclas["w"]) {
+        nave.vx += Math.cos(nave.ang) * THRUST;
+        nave.vy += Math.sin(nave.ang) * THRUST;
+      }
+      nave.vx *= ATRITO; nave.vy *= ATRITO;
+      nave.x += nave.vx; nave.y += nave.vy;
+      envolver(nave);
+      desenharNave();
+
+      ctx.fillStyle = "#5B7FA6";
+      tiros.forEach(t => {
+        t.x += t.vx; t.y += t.vy; t.vida--;
+        envolver(t);
+        ctx.beginPath();
+        ctx.arc(t.x, t.y, 2, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      tiros = tiros.filter(t => t.vida > 0);
+
+      asteroides.forEach(a => {
+        a.x += a.vx; a.y += a.vy; a.rot += a.velRot;
+        envolver(a);
+        desenharAsteroide(a);
+      });
+
+      // colisão tiro x asteroide
+      const novosAsteroides = [];
+      asteroides.forEach(a => {
+        let atingido = null;
+        for (const t of tiros) {
+          if (Math.hypot(t.x - a.x, t.y - a.y) < a.r) { atingido = t; break; }
+        }
+        if (atingido) {
+          atingido.vida = 0;
+          pontos += a.r >= 30 ? 20 : a.r >= 16 ? 50 : 100;
+          atualizarPlacar();
+          if (a.r >= 16) {
+            novosAsteroides.push(criarAsteroide(a.x, a.y, a.r / 2));
+            novosAsteroides.push(criarAsteroide(a.x, a.y, a.r / 2));
+          }
+        } else {
+          novosAsteroides.push(a);
+        }
+      });
+      asteroides = novosAsteroides;
+      tiros = tiros.filter(t => t.vida > 0);
+
+      // colisão nave x asteroide
+      if (Date.now() > invulneravelAte) {
+        for (const a of asteroides) {
+          if (Math.hypot(nave.x - a.x, nave.y - a.y) < a.r + nave.r * 0.6) {
+            vidas--;
+            atualizarPlacar();
+            if (vidas <= 0) return fimDeJogo();
+            nave = novaNave();
+            invulneravelAte = Date.now() + 1500;
+            break;
+          }
+        }
+      }
+
+      if (asteroides.length === 0) {
+        nivel++;
+        novaOnda();
+      }
+
+      animId = requestAnimationFrame(loop);
+    }
+
+    function atirar() {
+      const agora = Date.now();
+      if (agora - ultimoTiro < COOLDOWN_TIRO) return;
+      ultimoTiro = agora;
+      tiros.push({
+        x: nave.x + Math.cos(nave.ang) * 12,
+        y: nave.y + Math.sin(nave.ang) * 12,
+        vx: Math.cos(nave.ang) * VEL_TIRO + nave.vx,
+        vy: Math.sin(nave.ang) * VEL_TIRO + nave.vy,
+        vida: 55
+      });
+    }
+
+    function fimDeJogo() {
+      rodando = false;
+      document.getElementById("easter-egg-fim").classList.remove("d-none");
+      document.getElementById("easter-egg-fim-texto").textContent = `Fim de jogo. Pontuação: ${pontos} (onda ${nivel})`;
+    }
+
+    function teclaBaixo(e) {
+      teclas[e.key] = true;
+      if (e.key === " ") { e.preventDefault(); if (rodando) atirar(); }
+      if (e.key === "Escape") fecharJogo();
+    }
+    function teclaCima(e) { teclas[e.key] = false; }
+
+    document.addEventListener("keydown", teclaBaixo);
+    document.addEventListener("keyup", teclaCima);
+
+    function fecharJogo() {
+      rodando = false;
+      if (animId) cancelAnimationFrame(animId);
+      document.removeEventListener("keydown", teclaBaixo);
+      document.removeEventListener("keyup", teclaCima);
+      overlay.remove();
+    }
+
+    iniciarJogo();
+  };
+})();
+
+
+// --- NAVEGAÇÃO DA PRÉVIA (equivalente ao carregarPagina() do projeto real) ---
+document.addEventListener("DOMContentLoaded", () => {
+  window.__PAGINA_ORCAMENTO_HTML__ = document.getElementById("content-area").innerHTML;
+  window.dispatchEvent(new Event("orcamentoCarregado"));
+});
+
+window.irParaPaginaPrincipal = function () {
+  const content = document.getElementById("content-area");
+  content.innerHTML = window.__PAGINA_ORCAMENTO_HTML__;
+  window.dispatchEvent(new Event("orcamentoCarregado"));
+};
+
+window.irParaLogin = function () {
+  const content = document.getElementById("content-area");
+  content.innerHTML = window.__PAGINA_LOGIN_HTML__;
+};
+
+window.efetuarLoginPreview = function () {
+  const content = document.getElementById("content-area");
+  content.innerHTML = window.__PAGINA_ADMIN_HTML__;
+  window.dispatchEvent(new Event("adminPrecosCarregado"));
+};
+
+window.confirmarAtualizacaoPreview = function () {
+  if (confirm("Deseja realmente atualizar os valores?")) {
+    alert("Valores atualizados com sucesso.");
+  }
+};
+
+document.addEventListener("click", e => {
+  if (e.target.closest("#toggle-senha")) {
+    const i = document.getElementById("senha");
+    if (i) i.type = i.type === "password" ? "text" : "password";
+  }
+});
+</script>
+</body>
+</html>

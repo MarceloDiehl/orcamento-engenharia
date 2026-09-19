@@ -1,0 +1,1126 @@
+[
+  {
+    "codigo": "1",
+    "nome": "DIAGNÓSTICOS E SERVIÇOS DE MÃO-DE-OBRA",
+    "subgrupos": [
+      {
+        "codigo": "1",
+        "nome": "DIAGNÓSTICOS E SERVIÇOS DE MÃO-DE-OBRA",
+        "itens": [
+          {
+            "codigo": "1.1",
+            "descricao": "DIAGNÓSTICO, CORREÇÃO DE DEFEITOS E INSTALAÇÃO DE MATERIAIS FORNECIDOS PELO PODER JUDICIÁRIO",
+            "unidade": "UN",
+            "precos": [
+              75.84,
+              64.59,
+              64.51,
+              72.59,
+              65.85
+            ]
+          },
+          {
+            "codigo": "1.2",
+            "descricao": "DIAGNÓSTICO, CORREÇÃO DE DEFEITOS E INSTALAÇÃO DE MATERIAIS FORNECIDOS PELO PODER JUDICIÁRIO – URGENTE, EM HORÁRIO EXTRAORDINÁRIO",
+            "unidade": "UN",
+            "precos": [
+              "N.A",
+              "N.A ",
+              "N.A",
+              "N.A",
+              235.96
+            ]
+          },
+          {
+            "codigo": "1.3",
+            "descricao": "REVISÃO DE SHAFTS",
+            "unidade": "UN",
+            "precos": [
+              303.35,
+              258.32,
+              257.99,
+              290.31,
+              263.42
+            ]
+          },
+          {
+            "codigo": "1.4",
+            "descricao": "REVISÃO E REAPERTO DE QUADROS ELÉTRICOS - INCLUINDO MEDIÇÕES DE TENSÃO E CORRENTE - EM HORÁRIO EXTRAORDINÁRIO",
+            "unidade": "UN",
+            "precos": [
+              185.93,
+              158.34,
+              158.14,
+              177.96,
+              161.48
+            ]
+          },
+          {
+            "codigo": "1.5",
+            "descricao": "SERVIÇO DE LIMPEZA E ORGANIZAÇÃO DE SHAFT DE ELÉTRICA/TELECOMUNICAÇÕES - INCLUSIVE EM HORÁRIO EXTRAORDINÁRIO",
+            "unidade": "UN",
+            "precos": [
+              247.66,
+              210.91,
+              210.63,
+              237.03,
+              215.07
+            ]
+          }
+        ],
+        "virtual": true
+      }
+    ]
+  },
+  {
+    "codigo": "2",
+    "nome": "MATERIAIS COM INSTALAÇÃO",
+    "subgrupos": [
+      {
+        "codigo": "2.1",
+        "nome": "INFRAESTRUTURA",
+        "itens": [
+          {
+            "codigo": "2.1.1",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE CANALETA EM ALUMÍNIO, 25X73 MM, PERFIL DUPLO, 25 MM, TIPO “D”, BRANCA COM TAMPA PLANA RANHURADA, INCLUINDO CURVAS HORIZONTAIS OU VERTICAIS, ADAPTADORES DE ELETRODUTO, CAIXAS DE DERIVAÇÃO, ARREMATES E TAMPAS TERMINAIS.",
+            "unidade": "M",
+            "precos": [
+              241.25,
+              205.44,
+              205.19,
+              230.9,
+              209.51
+            ]
+          },
+          {
+            "codigo": "2.1.2",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE PORTA EQUIPAMENTOS PARA TRÊS BLOCOS MULTILINHAS PARA CANALETA EM ALUMÍNIO DE 25X73 MM (AXL), EM TERMOPLÁSTICO DE ENGENHARIA ABS/PC-V0, FIXADO NA CANALETA SOB PRESSÃO, BRANCO. INCLUI FORNECIMENTO DE ADAPTADOR SE PARA USO COM MODELO DE CALHA SLIM.",
+            "unidade": "UN",
+            "precos": [
+              107.84,
+              91.85,
+              91.73,
+              103.23,
+              93.66
+            ]
+          },
+          {
+            "codigo": "2.1.3",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE CANALETA EM ALUMÍNIO EXTRUDADO 15X53 MM, COM TAMPA FIXÁVEL SEM A NECESSIDADE DE PARAFUSOS, ACABAMENTO NA COR BRANCA, INCLUINDO CURVAS HORIZONTAIS OU VERTICAIS, ADAPTADORES DE ELETRODUTOS, CAIXAS DE DERIVAÇÃO, ARREMATES E TAMPAS TERMINAIS",
+            "unidade": "M",
+            "precos": [
+              142.17,
+              121.05,
+              120.9,
+              136.04,
+              123.46
+            ]
+          },
+          {
+            "codigo": "2.1.4",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE PORTA EQUIPAMENTOS PARA CANALETA EM ALUMÍNIO EXTRUDADO DE 15X53 MM (AXL), ACESSÓRIO PARA COLOCAÇÃO DE DISPOSITIVOS DE SAÍDA, FABRICADO EM TERMOPLÁSTICO DE ENGENHARIA ABS/PC-V0, COM CAPACIDADE PARA 2 (DOIS) MÓDULOS, BRANCO",
+            "unidade": "UN",
+            "precos": [
+              50.95,
+              43.41,
+              43.33,
+              48.77,
+              44.25
+            ]
+          },
+          {
+            "codigo": "2.1.5",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE CANALETA EM ALUMÍNIO EXTRUDADO TIPO SLIM 14X53 MM, COM TAMPA FIXÁVEL SEM A NECESSIDADE DE PARAFUSOS, ACABAMENTO NA COR BRANCA, INCLUINDO CURVAS HORIZONTAIS OU VERTICAIS, ADAPTADORES DE ELETRODUTO, CAIXAS DE DERIVAÇÃO, ARREMATES E TAMPAS TERMINAIS",
+            "unidade": "M",
+            "precos": [
+              172.21,
+              146.63,
+              146.45,
+              164.8,
+              149.54
+            ]
+          },
+          {
+            "codigo": "2.1.6",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE ELETRODUTO FLEXÍVEL METÁLICO DE ¾”, FABRICADO COM FITA DE AÇO GALVANIZADO SEM REVESTIMENTO, ACABAMENTO NA COR PRATA, CONECTOR MACHO REUTILIZÁVEL RETO PARA ELETRODUTO FLEXÍVEL METÁLICO NAS DUAS EXTREMIDADES",
+            "unidade": "M",
+            "precos": [
+              32.38,
+              27.57,
+              27.55,
+              30.98,
+              28.11
+            ]
+          },
+          {
+            "codigo": "2.1.7",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE ELETRODUTO RÍGIDO METÁLICO, EM AÇO GALVANIZADO ELETROLITICAMENTE PARA INSTALAÇÃO EXTERNA A PAREDE, DE ¾”, INCLUINDO CURVAS, FIXAÇÕES, CONDULETES E ACABAMENTOS NECESSÁRIOS",
+            "unidade": "M",
+            "precos": [
+              66.09,
+              56.26,
+              56.2,
+              63.25,
+              57.4
+            ]
+          },
+          {
+            "codigo": "2.1.8",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE ELETRODUTO RÍGIDO METÁLICO, EM AÇO GALVANIZADO A FOGO, PARA INSTALAÇÃO EXTERNA A PAREDE, DE ¾”, INCLUINDO CURVAS, FIXAÇÕES, CONDULETES E ACABAMENTOS NECESSÁRIOS",
+            "unidade": "M",
+            "precos": [
+              85.3,
+              72.62,
+              72.53,
+              81.63,
+              74.07
+            ]
+          },
+          {
+            "codigo": "2.1.9",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE ELETROCALHA GALVANIZADA ELETROLITICAMENTE, VAZADA, 100X50MM, INCLUINDO CURVAS ADAPTADORES, CAIXAS DE DERIVAÇÃO, SUPORTES, FIXAÇÕES E ACABAMENTOS NECESSÁRIOS",
+            "unidade": "M",
+            "precos": [
+              139.57,
+              118.87,
+              118.69,
+              133.56,
+              121.18
+            ]
+          },
+          {
+            "codigo": "2.1.10",
+            "descricao": "QUADRO DE DISTRIBUIÇÃO DE ENERGIA, DE SOBREPOR",
+            "unidade": "UN",
+            "precos": [
+              1261.6,
+              1074.34,
+              1073.01,
+              1207.41,
+              1095.58
+            ]
+          },
+          {
+            "codigo": "2.1.11",
+            "descricao": "QUADRO DE COMANDO, DE SOBREPOR",
+            "unidade": "UN",
+            "precos": [
+              697.4,
+              593.89,
+              593.15,
+              667.45,
+              605.62
+            ]
+          },
+          {
+            "codigo": "2.1.12",
+            "descricao": "INSTALAÇÃO E FIXAÇÃO DE SUPORTE ARTICULADO PARA TV OU MONITOR DE PAREDE",
+            "unidade": "UN",
+            "precos": [
+              341.01,
+              290.39,
+              290.04,
+              326.36,
+              296.12
+            ]
+          }
+        ]
+      },
+      {
+        "codigo": "2.2",
+        "nome": "TELECOMUNICAÇÕES",
+        "itens": [
+          {
+            "codigo": "2.2.1",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE PONTO LÓGICO, COMPOSTO POR UM MÓDULO TOMADA RJ45, UM MÓDULO CEGO, NA COR BRANCA, E UM CONECTOR FÊMEA RJ45, CABO UTP ATÉ 30 METROS, INCLUINDO IDENTIFICAÇÃO E CERTIFICAÇÃO DO PONTO, PADRÃO CAT6",
+            "unidade": "UN",
+            "precos": [
+              540.63,
+              460.41,
+              459.82,
+              517.41,
+              469.51
+            ]
+          },
+          {
+            "codigo": "2.2.2",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE PONTO LÓGICO, COMPOSTO POR UM MÓDULO TOMADA RJ45, UM MÓDULO CEGO, NA COR BRANCA, E UM CONECTOR FÊMEA RJ45, CABO UTP DE 30 ATÉ 60 METROS, INCLUINDO IDENTIFICAÇÃO E CERTIFICAÇÃO DO PONTO, PADRÃO CAT6.",
+            "unidade": "UN",
+            "precos": [
+              923.9,
+              786.76,
+              785.81,
+              884.22,
+              802.36
+            ]
+          },
+          {
+            "codigo": "2.2.3",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE PATCH PANEL, CARREGADO CAT. 6, 24 POSIÇÕES RJ-45, IDENTIFICAÇÃO FRONTAL E TRASEIRA DO PONTO DE REDE ATENDIDO E GUIA DE CABOS 19”",
+            "unidade": "UN",
+            "precos": [
+              2168.4,
+              1846.57,
+              1844.28,
+              2075.27,
+              1883.09
+            ]
+          },
+          {
+            "codigo": "2.2.4",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE MINIRACK 12U, COM PORTA E AJUSTE DE PLANO",
+            "unidade": "UN",
+            "precos": [
+              860.89,
+              733.12,
+              732.21,
+              823.93,
+              747.64
+            ]
+          },
+          {
+            "codigo": "2.2.5",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE RACK DE TELECOMUNICAÇÕES 44U, COM PORTA E AJUSTE DE PLANO",
+            "unidade": "UN",
+            "precos": [
+              3721.04,
+              3168.77,
+              3164.87,
+              3561.23,
+              3231.43
+            ]
+          },
+          {
+            "codigo": "2.2.6",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE UM TOTEM ELÉTRICO E LÓGICO DE 3,0 METROS EXTENSÍVEL POR MAIS 0,80 METRO COMPOSTO POR UMA ESTRUTURA TUBULAR EM ALUMÍNIO EXTRUDADO, COM UMA SECÇÃO EM CADA LADO, DUAS TAMPAS STANDARD, UM VERGALHÃO EXTENSOR E FIXADOR DE 1 (UM) METRO, NA COR BRANCA E 2 (DUAS) LUVAS DE ARREMATE FABRICADAS EM TERMOPLÁSTICO DE ENGENHARIA ABS/PC-V0 COLOCADAS NA BASE INFERIOR E NA BASE SUPERIOR, NA COR BRANCA",
+            "unidade": "UN",
+            "precos": [
+              2425.79,
+              2065.74,
+              2063.19,
+              2321.6,
+              2106.61
+            ]
+          },
+          {
+            "codigo": "2.2.7",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE PATCH CORD CAT.6 EM TAMANHOS DE 1,5 METROS, 2,5 METROS OU 3 METROS",
+            "unidade": "UN",
+            "precos": [
+              80.09,
+              68.23,
+              68.13,
+              76.68,
+              69.56
+            ]
+          },
+          {
+            "codigo": "2.2.8",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LINE CORD CAT.6",
+            "unidade": "M",
+            "precos": [
+              32.49,
+              27.67,
+              27.64,
+              31.09,
+              28.21
+            ]
+          },
+          {
+            "codigo": "2.2.9",
+            "descricao": "REPARO DE PONTO LÓGICO, INCLUINDO DIAGNÓSTICO, IDENTIFICAÇÃO E CERTIFICAÇÃO DO PONTO, PADRÃO CAT6.",
+            "unidade": "UN",
+            "precos": [
+              214.21,
+              182.43,
+              182.17,
+              205.01,
+              186.03
+            ]
+          }
+        ]
+      },
+      {
+        "codigo": "2.3",
+        "nome": "ELÉTRICA",
+        "itens": [
+          {
+            "codigo": "2.3.1",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE UM PONTO ELÉTRICO COMPOSTO POR UM MÓDULO DE TOMADA DE ENERGIA DE 20 AMPÈRES, 2 P+T NBR 14136, 250V, OU DE UM MÓDULO INTERRUPTOR SIMPLES, 10 AMPÈRES, 250V, OU DE UM ESPELHO CEGO PARA MÓDULO SIMPLES, PARA CAIXAS DE INTERRUPTORES, TOMADAS OU MISTAS, TODOS EM CORES DIVERSAS",
+            "unidade": "UN",
+            "precos": [
+              67.87,
+              57.82,
+              57.75,
+              64.95,
+              58.94
+            ]
+          },
+          {
+            "codigo": "2.3.2",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE UM PLUGUE 2P+T 10A OU 20A, AXIAL OU RADIAL.",
+            "unidade": "UN",
+            "precos": [
+              24.23,
+              20.61,
+              20.59,
+              23.19,
+              21.05
+            ]
+          },
+          {
+            "codigo": "2.3.3",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE UM SOQUETE DE LÂMPADA E27",
+            "unidade": "UN",
+            "precos": [
+              22.94,
+              19.53,
+              19.51,
+              21.95,
+              19.93
+            ]
+          },
+          {
+            "codigo": "2.3.4",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE CABO COM ISOLAÇÃO DE POLIOLEFINA, 2,5MM², 450/750V",
+            "unidade": "M",
+            "precos": [
+              6.53,
+              5.55,
+              5.55,
+              6.24,
+              5.68
+            ]
+          },
+          {
+            "codigo": "2.3.5",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE CABO COM ISOLAÇÃO DE POLIOLEFINA, 4,0MM², 450/750V",
+            "unidade": "M",
+            "precos": [
+              9.68,
+              8.23,
+              8.23,
+              9.29,
+              8.41
+            ]
+          },
+          {
+            "codigo": "2.3.6",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE CABO COM ISOLAÇÃO DE POLIOLEFINA, 6,0MM², 450/750V",
+            "unidade": "M",
+            "precos": [
+              13.61,
+              11.58,
+              11.57,
+              13.02,
+              11.81
+            ]
+          },
+          {
+            "codigo": "2.3.7",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE CABO COM ISOLAÇÃO DE POLIOLEFINA, 10,0MM², 450/750V",
+            "unidade": "M",
+            "precos": [
+              21.5,
+              18.31,
+              18.28,
+              20.59,
+              18.67
+            ]
+          },
+          {
+            "codigo": "2.3.8",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE CABO QUADRIPOLAR COM ISOLAÇÃO DE HEPR CONTENDO 4 VIAS DE 2,5MM²",
+            "unidade": "M",
+            "precos": [
+              19.43,
+              16.56,
+              16.55,
+              18.61,
+              16.88
+            ]
+          },
+          {
+            "codigo": "2.3.9",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE CABO COM ISOLAÇÃO DE EPR, 4,0MM², 600/1000V",
+            "unidade": "M",
+            "precos": [
+              11.82,
+              10.05,
+              10.05,
+              11.31,
+              10.27
+            ]
+          },
+          {
+            "codigo": "2.3.10",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE EXTENSÃO ELÉTRICA, DE 1,5 M DE EXTENSÃO, COM 4 TOMADAS 10A PADRÃO NBR 14136",
+            "unidade": "UN",
+            "precos": [
+              70.63,
+              60.15,
+              60.06,
+              67.6,
+              61.33
+            ]
+          },
+          {
+            "codigo": "2.3.11",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE EXTENSÃO ELÉTRICA, DE ATÉ 6M, COM RÉGUA DE 4 TOMADAS 20A PADRÃO NBR 14136",
+            "unidade": "UN",
+            "precos": [
+              70.63,
+              60.15,
+              60.06,
+              67.6,
+              61.33
+            ]
+          },
+          {
+            "codigo": "2.3.12",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE DISJUNTOR TERMOMAGNÉTICO, TIPO MINIDISJUNTOR, MONOPOLAR, CAPACIDADE NOMINAL DE 20A, 25A OU 32A",
+            "unidade": "UN",
+            "precos": [
+              39.13,
+              33.36,
+              33.3,
+              37.47,
+              33.98
+            ]
+          },
+          {
+            "codigo": "2.3.13",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE DISJUNTOR TERMOMAGNÉTICO, TIPO MINIDISJUNTOR, BIPOLAR, CAPACIDADE NOMINAL DE 20A, 25A, 32A OU 40A",
+            "unidade": "UN",
+            "precos": [
+              113.46,
+              96.63,
+              96.52,
+              108.6,
+              98.54
+            ]
+          },
+          {
+            "codigo": "2.3.14",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE DISJUNTOR TERMOMAGNÉTICO TRIPOLAR, CAPACIDADE NOMINAL DE 20A, 25A ,32A, 40A OU 50A",
+            "unidade": "UN",
+            "precos": [
+              138.44,
+              117.91,
+              117.75,
+              132.52,
+              120.23
+            ]
+          },
+          {
+            "codigo": "2.3.15",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE DISJUNTOR TRIPOLAR, EM CAIXA MOLDADA PARA ATÉ 320A, 690V, AJUSTÁVEL",
+            "unidade": "UN",
+            "precos": [
+              5933.11,
+              5052.53,
+              5046.28,
+              5678.31,
+              5152.45
+            ]
+          },
+          {
+            "codigo": "2.3.16",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE DISJUNTOR TRIPOLAR, EM CAIXA MOLDADA PARA ATÉ 630A, 690V, AJUSTÁVEL",
+            "unidade": "UN",
+            "precos": [
+              9454.83,
+              8051.55,
+              8041.6,
+              9048.8,
+              8210.78
+            ]
+          },
+          {
+            "codigo": "2.3.17",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE DISJUNTOR TRIPOLAR, EM CAIXA MOLDADA PARA ATÉ 1000A, 690V, AJUSTÁVEL",
+            "unidade": "UN",
+            "precos": [
+              16342.65,
+              13917.05,
+              13899.87,
+              15640.79,
+              14192.33
+            ]
+          },
+          {
+            "codigo": "2.3.18",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE DISJUNTOR TRIPOLAR, EM CAIXA MOLDADA PARA ATÉ 1600A, 690V, AJUSTÁVEL",
+            "unidade": "UN",
+            "precos": [
+              23181.17,
+              19740.6,
+              19716.19,
+              22185.6,
+              20131.02
+            ]
+          },
+          {
+            "codigo": "2.3.19",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE ELETROBÓIAS",
+            "unidade": "UN",
+            "precos": [
+              138.23,
+              117.72,
+              117.57,
+              132.29,
+              120.03
+            ]
+          },
+          {
+            "codigo": "2.3.20",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE RESISTÊNCIA PARA CHUVEIRO ELÉTRICO",
+            "unidade": "UN",
+            "precos": [
+              56.71,
+              48.29,
+              48.22,
+              54.26,
+              49.24
+            ]
+          },
+          {
+            "codigo": "2.3.21",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE CHUVEIRO ELÉTRICO, COM REGULAGEM ELETRÔNICA DE TEMPERATURA, 5500W (VERSÃO 127V) OU 7700W (VERSÃO 220V)",
+            "unidade": "UN",
+            "precos": [
+              224.23,
+              190.97,
+              190.71,
+              214.61,
+              194.73
+            ]
+          },
+          {
+            "codigo": "2.3.22",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE CAMPAINHA SEM FIO",
+            "unidade": "UN",
+            "precos": [
+              186.89,
+              159.13,
+              158.95,
+              178.85,
+              162.28
+            ]
+          },
+          {
+            "codigo": "2.3.23",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE MINUTEIRA (RELÉ TEMPORIZADOR)",
+            "unidade": "UN",
+            "precos": [
+              237.67,
+              202.39,
+              202.14,
+              227.45,
+              206.38
+            ]
+          },
+          {
+            "codigo": "2.3.24",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE FOTOCÉLULA (RELÉ FOTOELÉTRICO)",
+            "unidade": "UN",
+            "precos": [
+              72.21,
+              61.51,
+              61.42,
+              69.13,
+              62.73
+            ]
+          },
+          {
+            "codigo": "2.3.25",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE BORNES SAK E TERMINAIS",
+            "unidade": "UN",
+            "precos": [
+              10.53,
+              8.94,
+              8.93,
+              10.08,
+              9.14
+            ]
+          },
+          {
+            "codigo": "2.3.26",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE BOTOEIRA (COM E SEM RETENÇÃO)",
+            "unidade": "UN",
+            "precos": [
+              53.61,
+              45.68,
+              45.61,
+              51.34,
+              46.57
+            ]
+          },
+          {
+            "codigo": "2.3.27",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE CHAVE SELETORA DE 3 POSIÇÕES",
+            "unidade": "UN",
+            "precos": [
+              94.43,
+              80.42,
+              80.32,
+              90.38,
+              82.01
+            ]
+          },
+          {
+            "codigo": "2.3.28",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE SINALEIROS PARA PAINEL",
+            "unidade": "UN",
+            "precos": [
+              45.53,
+              38.75,
+              38.72,
+              43.57,
+              39.54
+            ]
+          },
+          {
+            "codigo": "2.3.29",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE RELÉ DE REVEZAMENTO DE BOMBA",
+            "unidade": "UN",
+            "precos": [
+              296.71,
+              252.68,
+              252.37,
+              283.96,
+              257.67
+            ]
+          },
+          {
+            "codigo": "2.3.30",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE CONTATOR TRIPOLAR",
+            "unidade": "UN",
+            "precos": [
+              426.18,
+              362.94,
+              362.46,
+              407.88,
+              370.11
+            ]
+          },
+          {
+            "codigo": "2.3.31",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE CONTATOR AUXILIAR",
+            "unidade": "UN",
+            "precos": [
+              220.43,
+              187.72,
+              187.47,
+              210.96,
+              191.44
+            ]
+          },
+          {
+            "codigo": "2.3.32",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE RELÉ TÉRMICO",
+            "unidade": "UN",
+            "precos": [
+              369.27,
+              314.44,
+              314.07,
+              353.41,
+              320.69
+            ]
+          },
+          {
+            "codigo": "2.3.33",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE DISJUNTOR MOTOR",
+            "unidade": "UN",
+            "precos": [
+              351.29,
+              299.16,
+              298.78,
+              336.21,
+              305.07
+            ]
+          },
+          {
+            "codigo": "2.3.34",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE RELÉ DE FALTA E SEQUÊNCIA DE FASE",
+            "unidade": "UN",
+            "precos": [
+              398.12,
+              339.05,
+              338.62,
+              381.05,
+              345.77
+            ]
+          },
+          {
+            "codigo": "2.3.35",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE CABO HDMI ULTRA HIGH SPEED OU HDMI 2.1, COM 20 METROS",
+            "unidade": "UN",
+            "precos": [
+              798.48,
+              679.98,
+              679.14,
+              764.19,
+              693.44
+            ]
+          }
+        ]
+      },
+      {
+        "codigo": "2.4",
+        "nome": "ILUMINAÇÃO INTERNA",
+        "itens": [
+          {
+            "codigo": "2.4.1",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LÂMPADA LED BULB 9W E27, TEMPERATURA DE COR 3000K, LIMPEZA DA LUMINÁRIA, DESCARTE ADEQUADO DA LÂMPADA",
+            "unidade": "UN",
+            "precos": [
+              30.07,
+              25.61,
+              25.58,
+              28.79,
+              26.13
+            ]
+          },
+          {
+            "codigo": "2.4.2",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LÂMPADA LED BULB 11W OU 13W E27, TEMPERATURA DE COR 4000K, LIMPEZA DA LUMINÁRIA, DESCARTE ADEQUADO DA LÂMPADA.",
+            "unidade": "UN",
+            "precos": [
+              38.29,
+              32.62,
+              32.57,
+              36.67,
+              33.25
+            ]
+          },
+          {
+            "codigo": "2.4.3",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LÂMPADA TUBELED T5, POTÊNCIA 8W, COM TROCA DOS SOQUETES G5, REMOÇÃO DO REATOR, LIMPEZA DA LUMINÁRIA, DESCARTE ADEQUADO DO REATOR E LÂMPADAS SUBSTITUÍDAS",
+            "unidade": "UN",
+            "precos": [
+              110.3,
+              93.94,
+              93.82,
+              105.57,
+              95.78
+            ]
+          },
+          {
+            "codigo": "2.4.4",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LÂMPADA TUBELED T5, POTÊNCIA 16W, COM TROCA DOS SOQUETES G5, REMOÇÃO DO REATOR, LIMPEZA DA LUMINÁRIA, DESCARTE ADEQUADO DO REATOR E LÂMPADAS SUBSTITUÍDAS",
+            "unidade": "UN",
+            "precos": [
+              151.2,
+              128.77,
+              128.61,
+              144.7,
+              131.32
+            ]
+          },
+          {
+            "codigo": "2.4.5",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LÂMPADA TUBELED T8, POTÊNCIA 9W, COM TROCA DOS SOQUETES G13, REMOÇÃO DO REATOR, LIMPEZA DA LUMINÁRIA, DESCARTE ADEQUADO DO REATOR E LÂMPADAS SUBSTITUÍDAS",
+            "unidade": "UN",
+            "precos": [
+              58.19,
+              49.57,
+              49.5,
+              55.68,
+              50.55
+            ]
+          },
+          {
+            "codigo": "2.4.6",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LÂMPADA TUBELED T8, POTÊNCIA 18W, COM TROCA DOS SOQUETES G13, REMOÇÃO DO REATOR, LIMPEZA DA LUMINÁRIA, DESCARTE ADEQUADO DO REATOR E LÂMPADAS SUBSTITUÍDAS",
+            "unidade": "UN",
+            "precos": [
+              62.18,
+              52.96,
+              52.88,
+              59.5,
+              54
+            ]
+          },
+          {
+            "codigo": "2.4.7",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA DE EMBUTIR, PARA 2 LÂMPADAS TUBULARES T8 DE 60CM, COM SOQUETES G13, COM ADEQUAÇÃO DE FORRO, INCLUINDO NOVA PLACA E PERFIL",
+            "unidade": "UN",
+            "precos": [
+              144.96,
+              123.43,
+              123.29,
+              138.73,
+              125.87
+            ]
+          },
+          {
+            "codigo": "2.4.8",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA TIPO ARANDELA, COM SOQUETE E27",
+            "unidade": "UN",
+            "precos": [
+              373.88,
+              318.41,
+              318,
+              357.83,
+              324.69
+            ]
+          },
+          {
+            "codigo": "2.4.9",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA QUADRADA DE EMBUTIR, LED 36W",
+            "unidade": "UN",
+            "precos": [
+              454.07,
+              386.68,
+              386.2,
+              434.58,
+              394.33
+            ]
+          },
+          {
+            "codigo": "2.4.10",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA RETANGULAR DE SOBREPOR, LED 36W",
+            "unidade": "UN",
+            "precos": [
+              155.44,
+              132.38,
+              132.21,
+              148.77,
+              134.98
+            ]
+          },
+          {
+            "codigo": "2.4.11",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA DE SOBREPOR LINEAR, LED 15W.",
+            "unidade": "UN",
+            "precos": [
+              494.67,
+              421.28,
+              420.74,
+              473.45,
+              429.58
+            ]
+          },
+          {
+            "codigo": "2.4.12",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA DE SOBREPOR LINEAR, LED 36W",
+            "unidade": "UN",
+            "precos": [
+              494.81,
+              421.37,
+              420.84,
+              473.56,
+              429.68
+            ]
+          },
+          {
+            "codigo": "2.4.13",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA CIRCULAR DE EMBUTIR, LED 14W",
+            "unidade": "UN",
+            "precos": [
+              375.61,
+              319.86,
+              319.47,
+              359.49,
+              326.18
+            ]
+          },
+          {
+            "codigo": "2.4.14",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA CIRCULAR DE EMBUTIR, LED 25W",
+            "unidade": "UN",
+            "precos": [
+              537.13,
+              457.43,
+              456.86,
+              514.07,
+              466.45
+            ]
+          }
+        ]
+      },
+      {
+        "codigo": "2.5",
+        "nome": "ILUMINAÇÃO EXTERNA",
+        "itens": [
+          {
+            "codigo": "2.5.1",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE POSTE DE ILUMINAÇÃO, FLANGEADO, INCLUINDO BASE E CHUMBADORES",
+            "unidade": "UN",
+            "precos": [
+              1197.4,
+              1019.68,
+              1018.4,
+              1145.96,
+              1039.85
+            ]
+          },
+          {
+            "codigo": "2.5.2",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LÂMPADA LED, TIPO LED BULB, 23W, SOQUETE E27, 6500K, FLUXO LUMINOSO MÍNIMO DE 3000LM, COM ADAPTADOR E27-E40, COM LIMPEZA DA LUMINÁRIA E DESCARTE ADEQUADO DA LÂMPADA E REATOR ANTIGOS",
+            "unidade": "UN",
+            "precos": [
+              224.75,
+              191.4,
+              191.15,
+              215.11,
+              195.16
+            ]
+          },
+          {
+            "codigo": "2.5.3",
+            "descricao": "INSTALAÇÃO E FORNECIMENTO DE GLOBO PARA LUMINÁRIA EXTERNA",
+            "unidade": "UN",
+            "precos": [
+              479.6,
+              408.42,
+              407.91,
+              459.02,
+              416.49
+            ]
+          },
+          {
+            "codigo": "2.5.4",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA TIPO PROJETOR EXTERNO, LED 30W, COM REMOÇÃO E DESCARTE ADEQUADO DA LUMINÁRIA, LÂMPADA E REATOR EXISTENTE, EM CASO DE SUBSTITUIÇÃO",
+            "unidade": "UN",
+            "precos": [
+              241.18,
+              205.39,
+              205.13,
+              230.82,
+              209.44
+            ]
+          },
+          {
+            "codigo": "2.5.5",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA TIPO PROJETOR EXTERNO, LED 50W COM REMOÇÃO E DESCARTE ADEQUADO DA LUMINÁRIA, LÂMPADA E REATOR EXISTENTE, EM CASO DE SUBSTITUIÇÃO",
+            "unidade": "UN",
+            "precos": [
+              318.02,
+              270.81,
+              270.48,
+              304.37,
+              276.17
+            ]
+          },
+          {
+            "codigo": "2.5.6",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA PARA ILUMINAÇÃO PÚBLICA EXTERNA, LED 60W",
+            "unidade": "UN",
+            "precos": [
+              738.86,
+              629.21,
+              628.43,
+              707.14,
+              641.64
+            ]
+          },
+          {
+            "codigo": "2.5.7",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA PARA ILUMINAÇÃO PÚBLICA EXTERNA (OEM), LED 50W",
+            "unidade": "UN",
+            "precos": [
+              500.02,
+              425.82,
+              425.29,
+              478.55,
+              434.22
+            ]
+          },
+          {
+            "codigo": "2.5.8",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE LUMINÁRIA PARA ILUMINAÇÃO PÚBLICA EXTERNA (OEM), LED 150W",
+            "unidade": "UN",
+            "precos": [
+              716.37,
+              610.05,
+              609.28,
+              685.62,
+              622.1
+            ]
+          },
+          {
+            "codigo": "2.5.9",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE SUPORTE PARA TOPO DE POSTE, PARA FIXAÇÃO DE UMA OU DUAS LUMINÁRIAS",
+            "unidade": "UN",
+            "precos": [
+              251.54,
+              214.21,
+              213.94,
+              240.76,
+              218.48
+            ]
+          }
+        ]
+      },
+      {
+        "codigo": "2.6",
+        "nome": "NO-BREAKS",
+        "itens": [
+          {
+            "codigo": "2.6.1",
+            "descricao": "INSTALAÇÃO OU SUBSTITUIÇÃO DE NO-BREAK DE 1 A 3KVA, FORNECIDO PELO CONTRATANTE - INCLUSIVE EM HORÁRIO EXTRAORDINÁRIO",
+            "unidade": "UN",
+            "precos": [
+              271.71,
+              231.39,
+              231.1,
+              260.04,
+              235.96
+            ]
+          },
+          {
+            "codigo": "2.6.2",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE BATERIA SELADA 12V, 12AH",
+            "unidade": "UN",
+            "precos": [
+              400.48,
+              341.07,
+              340.64,
+              383.3,
+              347.77
+            ]
+          },
+          {
+            "codigo": "2.6.3",
+            "descricao": "FORNECIMENTO E INSTALAÇÃO DE BATERIA SELADA 12V, 18AH.",
+            "unidade": "UN",
+            "precos": [
+              504.5,
+              429.62,
+              429.11,
+              482.86,
+              438.11
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "codigo": "3",
+    "nome": "LOCAÇÃO DE EQUIPAMENTOS",
+    "subgrupos": [
+      {
+        "codigo": "3",
+        "nome": "LOCAÇÃO DE EQUIPAMENTOS",
+        "itens": [
+          {
+            "codigo": "3.1",
+            "descricao": "SERVIÇO DE LOCAÇÃO DE PLATAFORMA ELEVATÓRIA ARTICULADA - ÁREA INTERNA OU EXTERNA, ATÉ 10M DE ALTURA - 2 DIAS DE USO",
+            "unidade": "CJ",
+            "precos": [
+              15661.68,
+              13337.17,
+              13320.67,
+              14989.05,
+              13600.95
+            ]
+          }
+        ],
+        "virtual": true
+      }
+    ]
+  }
+]

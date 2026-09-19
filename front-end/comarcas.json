@@ -1,0 +1,827 @@
+[
+  {
+    "comarca": "Porto Alegre",
+    "lote": 5,
+    "regiao": "1, 2 e 11"
+  },
+  {
+    "comarca": "Agudo",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Alegrete",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "Alvorada",
+    "lote": 1,
+    "regiao": "3"
+  },
+  {
+    "comarca": "Antônio Prado",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Arroio do Meio",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Arroio do Tigre",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Arroio Grande",
+    "lote": 2,
+    "regiao": "4"
+  },
+  {
+    "comarca": "Arvorezinha",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Augusto Pestana",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Bagé",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "Barra do Ribeiro",
+    "lote": 1,
+    "regiao": "3"
+  },
+  {
+    "comarca": "Bento Gonçalves",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Bom Jesus",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Butiá",
+    "lote": 2,
+    "regiao": "4"
+  },
+  {
+    "comarca": "Caçapava do Sul",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "Cacequi",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "Cachoeira do Sul",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "Cachoeirinha",
+    "lote": 1,
+    "regiao": "3"
+  },
+  {
+    "comarca": "Camaquã",
+    "lote": 2,
+    "regiao": "4"
+  },
+  {
+    "comarca": "Campina das Missões",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Campo Bom",
+    "lote": 1,
+    "regiao": "10"
+  },
+  {
+    "comarca": "Campo Novo",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Candelária",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Canela",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Canguçu",
+    "lote": 2,
+    "regiao": "4"
+  },
+  {
+    "comarca": "Canoas",
+    "lote": 1,
+    "regiao": "10"
+  },
+  {
+    "comarca": "Capão da Canoa",
+    "lote": 1,
+    "regiao": "3"
+  },
+  {
+    "comarca": "Carazinho",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Carlos Barbosa",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Casca",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Catuípe",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Caxias do Sul",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Cerro Largo",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Charqueadas",
+    "lote": 2,
+    "regiao": "4"
+  },
+  {
+    "comarca": "Constantina",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Coronel Bicaco",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Crissiumal",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Cruz Alta",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Dois Irmãos",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Dom Pedrito",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "Eldorado do Sul",
+    "lote": 1,
+    "regiao": "3"
+  },
+  {
+    "comarca": "Encantado",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Encruzilhada do Sul",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "Erechim",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Espumoso",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Estância Velha",
+    "lote": 1,
+    "regiao": "10"
+  },
+  {
+    "comarca": "Esteio",
+    "lote": 1,
+    "regiao": "10"
+  },
+  {
+    "comarca": "Estrela",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Farroupilha",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Faxinal do Soturno",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Feliz",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Flores da Cunha",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Frederico Westphalen",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Garibaldi",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Gaurama",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "General Câmara",
+    "lote": 2,
+    "regiao": "4"
+  },
+  {
+    "comarca": "Getúlio Vargas",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Giruá",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Gramado",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Gravataí",
+    "lote": 1,
+    "regiao": "3"
+  },
+  {
+    "comarca": "Guaíba",
+    "lote": 1,
+    "regiao": "3"
+  },
+  {
+    "comarca": "Guaporé",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Guarani das Missões",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Herval",
+    "lote": 2,
+    "regiao": "4"
+  },
+  {
+    "comarca": "Horizontina",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Ibirubá",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Igrejinha",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Ijuí",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Iraí",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Itaqui",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "Ivoti",
+    "lote": 1,
+    "regiao": "10"
+  },
+  {
+    "comarca": "Jaguarão",
+    "lote": 2,
+    "regiao": "4"
+  },
+  {
+    "comarca": "Jaguari",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "Júlio de Castilhos",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Lagoa Vermelha",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Lajeado",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Lavras do Sul",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "Marau",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Marcelino Ramos",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Montenegro",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Mostardas",
+    "lote": 1,
+    "regiao": "3"
+  },
+  {
+    "comarca": "Não-Me-Toque",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Nonoai",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Nova Petrópolis",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Nova Prata",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Novo Hamburgo",
+    "lote": 1,
+    "regiao": "10"
+  },
+  {
+    "comarca": "Osório",
+    "lote": 1,
+    "regiao": "3"
+  },
+  {
+    "comarca": "Palmares do Sul",
+    "lote": 1,
+    "regiao": "3"
+  },
+  {
+    "comarca": "Palmeira das Missões",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Panambi",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Parobé",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Passo Fundo",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Pedro Osório",
+    "lote": 2,
+    "regiao": "4"
+  },
+  {
+    "comarca": "Pelotas",
+    "lote": 2,
+    "regiao": "4"
+  },
+  {
+    "comarca": "Pinheiro Machado",
+    "lote": 2,
+    "regiao": "4"
+  },
+  {
+    "comarca": "Piratini",
+    "lote": 2,
+    "regiao": "4"
+  },
+  {
+    "comarca": "Planalto",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Portão",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Porto Xavier",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Quaraí",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "Restinga Seca",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Rio Grande",
+    "lote": 2,
+    "regiao": "4"
+  },
+  {
+    "comarca": "Rio Pardo ",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "Rodeio Bonito",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Ronda Alta ",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Rosário do Sul",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "Salto do Jacuí",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Sananduva ",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Santa Bárbara do Sul ",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Santa Cruz do Sul",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Santa Maria",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Santa Rosa",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Santa Vitória do Palmar",
+    "lote": 2,
+    "regiao": "4"
+  },
+  {
+    "comarca": "Santana do Livramento",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "Santiago",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "Santo Ângelo",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Santo Antônio da Patrulha",
+    "lote": 1,
+    "regiao": "3"
+  },
+  {
+    "comarca": "Santo Antônio das Missões",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Santo Augusto",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Santo Cristo",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "São Borja",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "São Francisco de Assis",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "São Francisco de Paula",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "São Gabriel",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "São Jerônimo",
+    "lote": 2,
+    "regiao": "4"
+  },
+  {
+    "comarca": "São José do Norte",
+    "lote": 2,
+    "regiao": "4"
+  },
+  {
+    "comarca": "São José do Ouro",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "São Leopoldo",
+    "lote": 1,
+    "regiao": "10"
+  },
+  {
+    "comarca": "São Lourenço do Sul",
+    "lote": 2,
+    "regiao": "4"
+  },
+  {
+    "comarca": "São Luiz Gonzaga",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "São Marcos",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "São Pedro do Sul",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "São Sebastião do Caí",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "São Sepé",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "São Valentim",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "São Vicente do Sul",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "Sapiranga",
+    "lote": 1,
+    "regiao": "10"
+  },
+  {
+    "comarca": "Sapucaia do Sul",
+    "lote": 1,
+    "regiao": "10"
+  },
+  {
+    "comarca": "Sarandi",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Seberi",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Sobradinho",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Soledade",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Tapejara",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Tapera",
+    "lote": 4,
+    "regiao": "8"
+  },
+  {
+    "comarca": "Tapes",
+    "lote": 2,
+    "regiao": "4"
+  },
+  {
+    "comarca": "Taquara",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Taquari",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Tenente Portela",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Terra de Areia",
+    "lote": 1,
+    "regiao": "3"
+  },
+  {
+    "comarca": "Teutônia",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Torres",
+    "lote": 1,
+    "regiao": "3"
+  },
+  {
+    "comarca": "Tramandaí",
+    "lote": 1,
+    "regiao": "3"
+  },
+  {
+    "comarca": "Três Coroas",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Três de Maio",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Três Passos",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Triunfo",
+    "lote": 2,
+    "regiao": "4"
+  },
+  {
+    "comarca": "Tucunduva",
+    "lote": 3,
+    "regiao": "7"
+  },
+  {
+    "comarca": "Tupanciretã",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Uruguaiana",
+    "lote": 3,
+    "regiao": "5"
+  },
+  {
+    "comarca": "Vacaria",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Venâncio Aires",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Vera Cruz",
+    "lote": 2,
+    "regiao": "6"
+  },
+  {
+    "comarca": "Veranópolis",
+    "lote": 4,
+    "regiao": "9"
+  },
+  {
+    "comarca": "Viamão",
+    "lote": 1,
+    "regiao": "3"
+  }
+]

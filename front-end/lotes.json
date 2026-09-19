@@ -1,0 +1,32 @@
+[
+  {
+    "lote": 1,
+    "empresa": "HM",
+    "contrato": 120,
+    "regioes": "3 e 10"
+  },
+  {
+    "lote": 2,
+    "empresa": "FastLan",
+    "contrato": 121,
+    "regioes": "4 e 6"
+  },
+  {
+    "lote": 3,
+    "empresa": "FastLan",
+    "contrato": 122,
+    "regioes": "5 e 7"
+  },
+  {
+    "lote": 4,
+    "empresa": "Microcable",
+    "contrato": 123,
+    "regioes": "8 e 9"
+  },
+  {
+    "lote": 5,
+    "empresa": "FastLan",
+    "contrato": 124,
+    "regioes": "1, 2 e 11"
+  }
+]

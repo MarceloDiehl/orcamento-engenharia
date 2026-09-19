@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DIPRED/DMAN | Automação de Orçamento de Engenharia</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="orcamento.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+<header class="header-sticky">
+  <div class="d-flex justify-content-between align-items-center">
+    <a href="#" id="titulo" style="text-decoration: none;" onclick="window.irParaPaginaPrincipal(); return false;">DIPRED-DMAN
+      | <span class="sub-titulo">Automação de Orçamento de Engenharia</span></a>
+    <div class="d-flex align-items-center gap-4">
+      <div class="d-flex gap-2 ms-2 ps-3 align-items-center">
+        <button type="button" class="btn btn-outline-secondary btn-sm btn-circular" id="btn-home" title="Página Inicial"
+                onclick="window.irParaPaginaPrincipal()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+            <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+          </svg>
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-sm btn-circular" id="btn-reset"
+                title="Limpar Campos" onclick="window.confirmarLimparOrcamento && window.confirmarLimparOrcamento()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
+            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
+          </svg>
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-sm btn-circular" id="btn-print"
+                title="Gerar Relatório" onclick="window.abrirModalRelatorio && window.abrirModalRelatorio()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
+            <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1"/>
+            <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1"/>
+          </svg>
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-sm btn-circular" id="btn-login" title="Autenticar"
+                onclick="window.irParaLogin()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+               class="bi bi-person-badge" viewBox="0 0 16 16">
+            <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+            <path d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="container-global">
+<div id="content-area">
+<div id="pagina-orcamento">
+<!-- @autor Marcelo Diehl - DITIC-DSUP -->
+<div class="container-cds mt-3 mb-0">
+
+  <div class="barra-orcamento">
+    <div class="row g-2 align-items-end">
+      <div class="col-6 col-lg-4">
+        <label class="form-label"><b>Comarca:</b></label>
+        <select class="form-select form-select-sm" id="orc-comarca">
+          <option selected disabled>Selecione a Comarca</option>
+        </select>
+      </div>
+      <div class="col-3 col-lg-1">
+        <label class="form-label"><b>Região:</b></label>
+        <input type="text" id="orc-regiao" class="form-control form-control-sm text-center" readonly>
+      </div>
+      <div class="col-3 col-lg-1">
+        <label class="form-label"><b>Lote:</b></label>
+        <input type="text" id="orc-lote" class="form-control form-control-sm text-center" readonly>
+      </div>
+      <div class="col-6 col-lg-3">
+        <label class="form-label"><b>Empresa:</b></label>
+        <input type="text" id="orc-empresa" class="form-control form-control-sm text-center" readonly>
+      </div>
+      <div class="col-6 col-lg-3">
+        <label class="form-label"><b>Valor de Orçamento:</b></label>
+        <input type="text" value="R$ 0,00" id="orc-valor-total" class="form-control form-control-sm text-center" readonly>
+      </div>
+    </div>
+  </div>
+
+  <div id="orc-lista-grupos"></div>
+
+</div>
+
+<!-- Modal: geração de relatório em PDF (aberto pelo ícone de impressão no header) -->
+<div class="modal fade" id="modalRelatorio" tabindex="-1" aria-labelledby="modalRelatorioLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalRelatorioLabel">Gerar Relatório do Orçamento</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="form-relatorio">
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <label for="rel-ticket" class="form-label small"><b>Ticket</b></label>
+              <input type="text" inputmode="numeric" class="form-control form-control-sm" id="rel-ticket" placeholder="Nº do ticket">
+            </div>
+            <div class="col-6">
+              <label for="rel-tecnico" class="form-label small"><b>Técnico Responsável</b></label>
+              <input type="text" class="form-control form-control-sm" id="rel-tecnico" placeholder="Nome do técnico">
+            </div>
+          </div>
+          <div class="mb-1">
+            <label for="rel-descricao" class="form-label small"><b>Descrição</b></label>
+            <textarea class="form-control form-control-sm" id="rel-descricao" rows="4" maxlength="2000" placeholder="Observações sobre o atendimento..."></textarea>
+            <small class="text-muted float-end" id="rel-descricao-contador">0/2000</small>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="window.gerarRelatorioPDF()">Gerar Relatório PDF</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<div id="pagina-outras" class="d-none"></div>
+</div>
+</main>
+<footer class="footer mt-auto py-3">
+  <div class="d-flex justify-content-between align-items-center px-2">
+    <small>
+      <a href="#" class="text-decoration-none text-muted" data-bs-toggle="modal"
+         data-bs-target="#modalInformacoes">
+        © 2026 DIPRED/DMAN | Tribunal de Justiça - RS
+      </a>
+    </small>
+  </div>
+</footer>
+<div class="modal fade" id="modalInformacoes" tabindex="-1" aria-labelledby="modalInformacoesLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalInformacoesLabel">Informações do Sistema</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><b>DIPRED/DMAN</b></p>
+        <p>Versão do Sistema: 1.0.0 (Setembro/2026)</p>
+        <hr>
+        <p class="termos text-muted small">
+          <strong>Termos de Uso e Propriedade Técnica</strong><br>
+          <strong>Autoria e Propriedade</strong><br>
+          Este software foi desenvolvido por <span class="nome-autor-easter-egg" onclick="window.registrarCliqueEasterEgg()">Marcelo Diehl</span> para uso exclusivo da Direção de
+          Tecnologia da Informação e Comunicação (DITIC) do Tribunal de Justiça do Rio Grande do Sul (TJRS). A
+          propriedade intelectual do código-fonte
+          pertence ao autor, sendo o direito de uso cedido integralmente ao Tribunal de Justiça do Rio
+          Grande do Sul (TJRS) para fins institucionais.
+          <br><br>
+          <strong>Limites de Uso e Distribuição</strong><br>
+          Ambiente Restrito: O uso desta aplicação é restrito à rede privada e aos servidores autorizados
+          pelo DIPRED/DMAN. É expressamente proibida a hospedagem ou execução em servidores externos não
+          homologados pelo departamento, exceto manutenção em repositório de versionamento do autor do
+          projeto mediante ocultação de dados sensiveis ou confidenciais.
+          <br><br>
+          <strong>Finalidade</strong><br>
+          A ferramenta destina-se exclusivamente ao auxílio de cálculos técnicos e processamento de dados
+          internos do setor.
+          <br><br>
+          <strong>Modificações e Manutenção (Código Aberto Setorial)</strong><br>
+          É permitida a leitura, cópia e modificação do código-fonte por outros membros e colaboradores
+          técnicos do departamento, visando a continuidade, correção de bugs e evolução das
+          funcionalidades.
+          <br><br>
+          Toda e qualquer modificação derivada deve manter os créditos do autor original e ser devidamente
+          documentada no histórico de versionamento interno.
+          <br><br>
+          <strong>Isenção de Responsabilidade</strong><br>
+          O software é fornecido "no estado em que se encontra" (as is). O autor não se responsabiliza por
+          resultados derivados de entradas de dados incorretas ou por usos que firam as políticas de
+          segurança da informação do TJRS. Todos os dados de entrada e de saída do programa deverão ser conferidos pelo usuário.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: troca de senha do usuário administrador -->
+<div class="modal fade" id="modalTrocarSenha" tabindex="-1" aria-labelledby="modalTrocarSenhaLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTrocarSenhaLabel">Alterar Senha de Acesso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="trocar-senha-aviso" class="text-muted small d-none">
+          Você está usando a senha padrão do sistema. Por segurança, recomendamos trocá-la agora.
+        </p>
+        <form id="form-trocar-senha">
+          <div class="mb-3">
+            <label for="senha-atual" class="form-label small"><b>Senha Atual</b></label>
+            <input type="password" class="form-control form-control-sm" id="senha-atual" required>
+          </div>
+          <div class="mb-3">
+            <label for="nova-senha" class="form-label small"><b>Nova Senha</b></label>
+            <input type="password" class="form-control form-control-sm" id="nova-senha" minlength="6" required>
+          </div>
+          <div class="mb-1">
+            <label for="confirmar-nova-senha" class="form-label small"><b>Confirmar Nova Senha</b></label>
+            <input type="password" class="form-control form-control-sm" id="confirmar-nova-senha" minlength="6" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="window.confirmarTrocaSenha()">Salvar Nova Senha</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.__PAGINA_LOGIN_HTML__ ="<div class=\"container-configuracao d-flex justify-content-center pt-5\" style=\"min-height: 80vh;\">\n  <div class=\"login-wrapper w-100\" style=\"max-width: 350px;\">\n\n    <div class=\"mb-5 border-start border-4 border-secondary ps-3\">\n      <h2 class=\"h5 fw-bold mb-0 text-dark text-uppercase text\" style=\"letter-spacing: 1px;\">AUTENTICAÇÃO</h2>\n      <small class=\"text-muted text-uppercase\" style=\"font-size: 0.7rem;\">Configuração Interna do Sistema</small>\n    </div>\n\n    <form id=\"form-login\">\n      <div class=\"mb-4\">\n        <label for=\"usuario\" class=\"form-label small text-muted text-uppercase fw-semibold\">Identificação</label>\n        <input type=\"text\" id=\"usuario\" class=\"form-control form-control-custom\" placeholder=\"Usuário de rede\" required>\n      </div>\n\n      <div class=\"mb-4\">\n        <label for=\"senha\" class=\"form-label small text-muted text-uppercase fw-semibold\">Chave de Acesso</label>\n        <div class=\"position-relative\">\n          <input type=\"password\" id=\"senha\" class=\"form-control form-control-custom\" placeholder=\"********\" required>\n          <button type=\"button\" class=\"btn-toggle-pass\" id=\"toggle-senha\">\n            <svg width=\"16\" height=\"16\" fill=\"currentColor\" viewBox=\"0 0 16 16\">\n              <path d=\"M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z\" />\n              <path d=\"M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z\" />\n            </svg>\n          </button>\n        </div>\n      </div>\n\n      <div id=\"login-erro\" class=\"d-none\">\n        <p class=\"text-danger small mb-3\">\n          Credenciais inválidas. Tente novamente.\n        </p>\n      </div>\n\n      <button type=\"button\" onclick=\"window.efetuarLogin()\" class=\"btn btn-secondary w-100 fw-bold py-2 text-uppercase d-flex align-items-center justify-content-center gap-2\" style=\"font-size: 0.8rem; border-radius: 4px;\">\n        <span>Entrar no Sistema</span>\n        <svg width=\"14\" height=\"14\" fill=\"currentColor\" viewBox=\"0 0 16 16\">\n          <path fill-rule=\"evenodd\" d=\"M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z\" />\n          <path fill-rule=\"evenodd\" d=\"M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z\" />\n        </svg>\n      </button>\n    </form>\n  </div>\n</div>";
+
+window.__PAGINA_ADMIN_HTML__ = "<section class=\"paragrafo-configuracao\">\n  <div class=\"container-titulo\">\n    <div class=\"col-md-12\">\n      <div class=\"row align-items-center\">\n        <div class=\"col-md-9\">\n          <h3 class=\"titulo-configuracao\">Atualização de Valores por Item de Orçamento</h3>\n        </div>\n        <div class=\"col-md-3 text-md-end mt-2 mt-md-0\">\n          <button type=\"button\" class=\"btn btn-outline-secondary btn-sm\" data-bs-toggle=\"modal\" data-bs-target=\"#modalTrocarSenha\">Alterar Senha</button>\n        </div>\n        <div class=\"col-md-12\">\n          <p class=\"p-configuracao\">Módulo destinado à atualização dos valores unitários de cada item de infraestrutura, por empresa/lote contratado.</p>\n          <p class=\"p-configuracao\" style=\"font-size: 12px;\">Exemplo de formato: 125.00 (use apenas números e ponto como separador decimal). Campos marcados como N/A não se aplicam ao lote correspondente.</p>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n\n<div class=\"container-cds mb-3\">\n  <div id=\"admin-tabela-precos\"></div>\n\n  <div class=\"row justify-content-end mt-3 g-2\">\n    <div class=\"col-md-2 col-4\">\n      <button type=\"button\" onclick=\"window.restaurarValoresAdmin()\"\n              class=\"btn btn-secondary w-100 fw-bold py-2 text-uppercase d-flex align-items-center justify-content-center gap-2\"\n              style=\"font-size: 0.8rem; border-radius: 4px;\">\n        <span>Desfazer</span>\n      </button>\n    </div>\n    <div class=\"col-md-2 col-4\">\n      <button type=\"button\" onclick=\"window.limparFormularioAdmin()\"\n              class=\"btn btn-secondary w-100 fw-bold py-2 text-uppercase d-flex align-items-center justify-content-center gap-2\"\n              style=\"font-size: 0.8rem; border-radius: 4px;\">\n        <span>Limpar</span>\n      </button>\n    </div>\n    <div class=\"col-md-2 col-4\">\n      <button type=\"button\" onclick=\"window.confirmarAtualizacao()\"\n              class=\"btn btn-secondary w-100 fw-bold py-2 text-uppercase d-flex align-items-center justify-content-center gap-2\"\n              style=\"font-size: 0.8rem; border-radius: 4px;\">\n        <span>Atualizar</span>\n      </button>\n    </div>\n  </div>\n</div>";
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="orcamento.js"></script>
+<script>
+// --- NAVEGAÇÃO ENTRE TELAS (orçamento / login / admin) ---
+// A página de orçamento nunca é destruída/recriada ao navegar — apenas escondida — para não
+// perder as quantidades já preenchidas pelo usuário. Só "Limpar campos" ou edição manual zeram os valores.
+document.addEventListener("DOMContentLoaded", () => {
+  window.dispatchEvent(new Event("orcamentoCarregado"));
+});
+
+function paginaOutrasVisivel() {
+  return !document.getElementById("pagina-outras").classList.contains("d-none");
+}
+
+function mostrarPaginaOrcamento() {
+  const outras = document.getElementById("pagina-outras");
+  outras.classList.add("d-none");
+  outras.innerHTML = "";
+  document.getElementById("pagina-orcamento").classList.remove("d-none");
+}
+
+function mostrarPaginaOutras(html) {
+  document.getElementById("pagina-orcamento").classList.add("d-none");
+  const outras = document.getElementById("pagina-outras");
+  outras.innerHTML = html;
+  outras.classList.remove("d-none");
+}
+
+window.irParaPaginaPrincipal = function () {
+  if (!paginaOutrasVisivel()) return; // já está na página principal: não faz nada
+
+  window.__ADMIN_AUTH__ = null;
+  window.__ADMIN_USER__ = null;
+  mostrarPaginaOrcamento();
+};
+
+window.irParaLogin = function () {
+  mostrarPaginaOutras(window.__PAGINA_LOGIN_HTML__);
+};
+
+window.abrirModalRelatorio = function () {
+  if (paginaOutrasVisivel()) return; // só disponível na página principal
+
+  new bootstrap.Modal(document.getElementById("modalRelatorio")).show();
+};
+
+window.confirmarLimparOrcamento = async function () {
+  if (!window.limparOrcamento || paginaOutrasVisivel()) return; // só disponível na página principal
+
+  const confirmacao = await Swal.fire({
+    title: "Limpar campos?",
+    text: "Todas as quantidades preenchidas no orçamento atual serão perdidas.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#474f5c",
+    cancelButtonColor: "#6c757d",
+    confirmButtonText: "Sim, limpar",
+    cancelButtonText: "Cancelar",
+    reverseButtons: true
+  });
+  if (confirmacao.isConfirmed) window.limparOrcamento();
+};
+
+window.efetuarLogin = async function () {
+  const usuario = document.getElementById("usuario").value.trim();
+  const senha = document.getElementById("senha").value;
+  const erro = document.getElementById("login-erro");
+
+  try {
+    const resp = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ usuario, senha })
+    });
+
+    if (!resp.ok) {
+      erro.classList.remove("d-none");
+      return;
+    }
+
+    const dados = await resp.json();
+
+    // Credenciais mantidas apenas em memória (nunca em localStorage/sessionStorage) para
+    // autenticar as chamadas administrativas via HTTP Basic, exigido pelo back-end em /api/admin/**.
+    window.__ADMIN_AUTH__ = btoa(usuario + ":" + senha);
+    window.__ADMIN_USER__ = usuario;
+
+    erro.classList.add("d-none");
+    mostrarPaginaOutras(window.__PAGINA_ADMIN_HTML__);
+    window.dispatchEvent(new Event("adminPrecosCarregado"));
+
+    if (dados.senhaProvisoria) {
+      document.getElementById("trocar-senha-aviso")?.classList.remove("d-none");
+      new bootstrap.Modal(document.getElementById("modalTrocarSenha")).show();
+    }
+  } catch (e) {
+    erro.classList.remove("d-none");
+  }
+};
+
+window.confirmarAtualizacao = async function () {
+  const atualizacoes = [];
+  document.querySelectorAll(".preco-admin").forEach(input => {
+    if (input.disabled) return;
+    const valor = parseFloat(input.value);
+    if (isNaN(valor)) return;
+    atualizacoes.push({
+      codigo: input.dataset.codigo,
+      lote: parseInt(input.dataset.lote, 10),
+      valor: valor
+    });
+  });
+
+  if (atualizacoes.length === 0) {
+    Swal.fire({
+      icon: "info",
+      text: "Nenhum valor foi preenchido para atualização.",
+      confirmButtonColor: "#474f5c"
+    });
+    return;
+  }
+
+  const confirmacao = await Swal.fire({
+    title: "Confirmar Atualização?",
+    text: `Você está prestes a atualizar ${atualizacoes.length} valor(es) de itens. Essa ação afetará todos os cálculos de orçamento.`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#474f5c",
+    cancelButtonColor: "#6c757d",
+    confirmButtonText: "Sim, atualizar",
+    cancelButtonText: "Cancelar",
+    reverseButtons: true
+  });
+  if (!confirmacao.isConfirmed) return;
+
+  try {
+    const resp = await fetch("/api/admin/precos/atualizar-lote", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Basic " + window.__ADMIN_AUTH__
+      },
+      body: JSON.stringify(atualizacoes)
+    });
+    if (resp.status === 401) throw new Error("Sessão administrativa expirada. Faça login novamente.");
+    if (!resp.ok) throw new Error("Falha na comunicação com o servidor");
+
+    Swal.fire({
+      title: "Sucesso!",
+      text: "Os valores foram atualizados no banco de dados.",
+      icon: "success",
+      confirmButtonColor: "#474f5c"
+    });
+  } catch (e) {
+    Swal.fire({
+      title: "Erro!",
+      text: e.message,
+      icon: "error",
+      confirmButtonColor: "#474f5c"
+    });
+  }
+};
+
+window.confirmarTrocaSenha = async function () {
+  const senhaAtual = document.getElementById("senha-atual").value;
+  const novaSenha = document.getElementById("nova-senha").value;
+  const confirmarNovaSenha = document.getElementById("confirmar-nova-senha").value;
+
+  if (novaSenha.length < 6) {
+    Swal.fire({ icon: "error", title: "Senha muito curta", text: "A nova senha deve ter pelo menos 6 caracteres.", confirmButtonColor: "#474f5c" });
+    return;
+  }
+  if (novaSenha !== confirmarNovaSenha) {
+    Swal.fire({ icon: "error", title: "As senhas não coincidem", text: "A confirmação deve ser igual à nova senha.", confirmButtonColor: "#474f5c" });
+    return;
+  }
+
+  try {
+    const resp = await fetch("/api/admin/usuario/senha", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Basic " + window.__ADMIN_AUTH__
+      },
+      body: JSON.stringify({ senhaAtual, novaSenha })
+    });
+
+    if (resp.status === 401) {
+      Swal.fire({ icon: "error", title: "Senha atual incorreta", text: "Confira a senha atual e tente novamente.", confirmButtonColor: "#474f5c" });
+      return;
+    }
+    if (!resp.ok) throw new Error("Falha na comunicação com o servidor");
+
+    // Atualiza a credencial em memória usada nas chamadas administrativas seguintes.
+    window.__ADMIN_AUTH__ = btoa(window.__ADMIN_USER__ + ":" + novaSenha);
+
+    document.getElementById("form-trocar-senha").reset();
+    document.getElementById("trocar-senha-aviso")?.classList.add("d-none");
+    bootstrap.Modal.getInstance(document.getElementById("modalTrocarSenha"))?.hide();
+
+    Swal.fire({ icon: "success", title: "Senha alterada!", text: "Sua senha foi atualizada com sucesso.", confirmButtonColor: "#474f5c" });
+  } catch (e) {
+    Swal.fire({ icon: "error", title: "Erro", text: e.message, confirmButtonColor: "#474f5c" });
+  }
+};
+
+document.addEventListener("click", e => {
+  if (e.target.closest("#toggle-senha")) {
+    const i = document.getElementById("senha");
+    if (i) i.type = i.type === "password" ? "text" : "password";
+  }
+});
+</script>
+</body>
+</html>

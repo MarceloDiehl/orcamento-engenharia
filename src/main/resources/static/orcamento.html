@@ -1,0 +1,68 @@
+<!-- @autor Marcelo Diehl - DITIC-DSUP -->
+<div class="container-cds mt-3 mb-0">
+
+  <div class="barra-orcamento">
+    <div class="row g-2 align-items-end">
+      <div class="col-6 col-lg-4">
+        <label class="form-label"><b>Comarca:</b></label>
+        <select class="form-select form-select-sm" id="orc-comarca">
+          <option selected disabled>Selecione a Comarca</option>
+        </select>
+      </div>
+      <div class="col-3 col-lg-1">
+        <label class="form-label"><b>Região:</b></label>
+        <input type="text" id="orc-regiao" class="form-control form-control-sm text-center" readonly>
+      </div>
+      <div class="col-3 col-lg-1">
+        <label class="form-label"><b>Lote:</b></label>
+        <input type="text" id="orc-lote" class="form-control form-control-sm text-center" readonly>
+      </div>
+      <div class="col-6 col-lg-3">
+        <label class="form-label"><b>Empresa:</b></label>
+        <input type="text" id="orc-empresa" class="form-control form-control-sm text-center" readonly>
+      </div>
+      <div class="col-6 col-lg-3">
+        <label class="form-label"><b>Valor de Orçamento:</b></label>
+        <input type="text" value="R$ 0,00" id="orc-valor-total" class="form-control form-control-sm text-center" readonly>
+      </div>
+    </div>
+  </div>
+
+  <div id="orc-lista-grupos"></div>
+
+</div>
+
+<!-- Modal: geração de relatório em PDF (aberto pelo ícone de impressão no header) -->
+<div class="modal fade" id="modalRelatorio" tabindex="-1" aria-labelledby="modalRelatorioLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalRelatorioLabel">Gerar Relatório do Orçamento</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="form-relatorio">
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <label for="rel-ticket" class="form-label small"><b>Ticket</b></label>
+              <input type="text" inputmode="numeric" class="form-control form-control-sm" id="rel-ticket" placeholder="Nº do ticket">
+            </div>
+            <div class="col-6">
+              <label for="rel-tecnico" class="form-label small"><b>Técnico Responsável</b></label>
+              <input type="text" class="form-control form-control-sm" id="rel-tecnico" placeholder="Nome do técnico">
+            </div>
+          </div>
+          <div class="mb-1">
+            <label for="rel-descricao" class="form-label small"><b>Descrição</b></label>
+            <textarea class="form-control form-control-sm" id="rel-descricao" rows="4" maxlength="1000" placeholder="Observações sobre o atendimento..."></textarea>
+            <small class="text-muted float-end" id="rel-descricao-contador">0/1000</small>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="window.gerarRelatorioPDF()">Gerar Relatório PDF</button>
+      </div>
+    </div>
+  </div>
+</div>
